@@ -8,14 +8,29 @@
 
 #import "ServerManager.h"
 
+
 @implementation ServerManager
 
 
-+ (NSMutableArray*)jsonRequestWithUrl:(NSString*)url
-{
+
++ (NSMutableArray*)jsonRequestWithUrl:(NSString*)url{
+
+    NSMutableArray *allElements = [NSMutableArray new];
+    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
+    NSURLResponse *response;
     NSError *error;
-    NSData *jsonData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:url]];
-    NSMutableArray *allElements = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    
+    NSURLSessionDataTask *aData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (aData) {
+        
+        allElements = (NSMutableArray*)[NSJSONSerialization JSONObjectWithData:aData options:kNilOptions error:&error];
+        
+        NSLog(@"jsonReturn %@",allElements);
+    }
     return allElements;
 }
 

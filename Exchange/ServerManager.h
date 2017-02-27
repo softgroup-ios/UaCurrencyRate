@@ -6,7 +6,9 @@
 //  Copyright © 2017 Max Ostapchuk. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
+
 
 @interface ServerManager : NSObject
 

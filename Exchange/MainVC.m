@@ -37,7 +37,7 @@
     self.modelsArray = [NSMutableArray new];
     [self createModels];
     [self updateLabels];
-    [self addTapRecognizer];
+    [self addTapAndSwipeRecognizer];
 }
 
 
@@ -45,7 +45,6 @@
     [super viewDidAppear:animated];
     
     [self createYesterdayModels];
-    _yesterdayUsdModel.sellRate = 40.f;
     [self setCompracion:_rubModel and:_yesterdayRubModel andSet:_rubComprasionImageView];
     [self setCompracion:_usdModel and:_yesterdayUsdModel andSet:_usdComprasionImageView];
     [self setCompracion:_eurModel and:_yesterdayEurModel andSet:_eurCompraisonImageView];
@@ -102,8 +101,6 @@
     self.lastUpdateLabel.text = [NSString stringWithFormat:@"Last update - %@",[self convertDateToString:now]];
 }
 
-
-
 #pragma mark - VC buttons
 
 - (IBAction)refreshButtonAction:(id)sender {
@@ -121,13 +118,13 @@
 
 -(void)setCompracion:(CurrencyModel*)firstM and:(CurrencyModel*)secondM andSet:(UIImageView*)imageView{
     
-    if(firstM.sellRate > secondM.sellRate){
+    if(firstM.buyRate > secondM.buyRate){
         imageView.image = [UIImage imageNamed:@"arrow_up"];
         imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imageView setTintColor:RATING_UP];
     }
     else
-        if(firstM.sellRate < secondM.sellRate){
+        if(firstM.buyRate < secondM.buyRate){
             imageView.image = [UIImage imageNamed:@"arrow_down"];
             imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [imageView setTintColor:RATING_DOWN];
@@ -136,7 +133,7 @@
 
 #pragma mark - Compracion View
 
--(void)addTapRecognizer{
+-(void)addTapAndSwipeRecognizer{
     UITapGestureRecognizer *usdTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
     usdTap.numberOfTapsRequired = 1;
     [_usdComprasionImageView setUserInteractionEnabled:YES];
@@ -149,6 +146,14 @@
     usdTap.numberOfTapsRequired = 1;
     [_rubComprasionImageView setUserInteractionEnabled:YES];
     [_rubComprasionImageView addGestureRecognizer:rubTap];
+    
+    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeSegue)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [self.view addGestureRecognizer:recognizer];
+}
+
+-(void)swipeSegue{
+    [self performSegueWithIdentifier:@"convertSegue" sender:nil];
 }
 
 -(void)tapDetected:(UITapGestureRecognizer *)recognizer{
@@ -163,17 +168,17 @@
     UILabel *label = [[UILabel alloc] init];
     float compracion;
     if(recognizer.view.tag == 1){
-        compracion = _eurModel.sellRate - _yesterdayEurModel.sellRate;
+        compracion = _eurModel.buyRate - _yesterdayEurModel.buyRate;
         [self setTextColorBy:compracion for:label];
     }
     else
         if(recognizer.view.tag == 2){
-            compracion = _rubModel.sellRate - _yesterdayRubModel.sellRate;
+            compracion = _rubModel.buyRate - _yesterdayRubModel.buyRate;
             [self setTextColorBy:compracion for:label];
         }
         else
             if(recognizer.view.tag == 3){
-                compracion = _usdModel.sellRate - _yesterdayUsdModel.sellRate;
+                compracion = _usdModel.buyRate - _yesterdayUsdModel.buyRate;
                 [self setTextColorBy:compracion for:label];
             }
     

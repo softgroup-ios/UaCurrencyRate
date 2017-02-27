@@ -22,11 +22,11 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *buyOrSell;
 
 @property (weak, nonatomic) IBOutlet UITextField *summToConvert;
-@property (weak, nonatomic) IBOutlet UILabel *resultLabel;
+@property (weak, nonatomic) IBOutlet UITextField *resultTextField;
+
 
 
 - (IBAction)buyOrSellTapped:(id)sender;
-- (IBAction)convertButton:(id)sender;
 - (IBAction)backButtonAction:(id)sender;
 
 

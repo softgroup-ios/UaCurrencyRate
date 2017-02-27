@@ -29,11 +29,10 @@
 +(NSArray*)getYesterdayCurrencyModels{
     
     NSDate *today = [NSDate date];
-    NSDate *yesterday = [today dateByAddingTimeInterval: -259200.0];
+    NSDate *yesterday = [today dateByAddingTimeInterval: -345600.0];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd.MM.yyyy"];
     NSString *dateString = [dateFormat stringFromDate:yesterday];
-    
     NSMutableArray *unsortedModelsArray = [NSMutableArray new];
     NSDictionary *recievedJSONArray = [ServerManager jsonRequestWithUrl:[NSString stringWithFormat:@"https://api.privatbank.ua/p24api/exchange_rates?json&date=%@",dateString]];
     NSArray *exchangeRate = [recievedJSONArray objectForKey:@"exchangeRate"];

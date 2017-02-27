@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self addSwipeSegue];
     [self customKeyBoard];
     self.summToConvert.delegate = self;
     self.uahModel.buyRate = 1.0f;
@@ -30,6 +31,7 @@
     self.pickerData = @[@"USD",@"EUR",@"UAH",@"RUB"];
     self.valuePicker.dataSource = self;
     self.valuePicker.delegate = self;
+    [_summToConvert addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 
@@ -56,9 +58,11 @@
     switch (component) {
         case 0:
             self.selectedPickerFirstComponent = row;
+            [self textFieldDidChange:_resultTextField];
             break;
         case 1:
             self.selectedPickerSecondComponent = row;
+            [self textFieldDidChange:_resultTextField];
         default:
             break;
     }
@@ -91,16 +95,19 @@
 
 -(float)createResultWith:(float)firstModel and:(float)secondModel{
     
+
     float inputNum = [_summToConvert.text floatValue];
     float resultNum;
+    CurrencyModel *firstPickerModel = [self getPickerValue:_selectedPickerFirstComponent];
+    CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
     
-    if([self getPickerValue:_selectedPickerFirstComponent] == _uahModel){
+    if(firstPickerModel == _uahModel){
         resultNum = (inputNum / secondModel);
     }else
-        if([self getPickerValue:_selectedPickerSecondComponent] == _uahModel){
+        if(secondPickerModel == _uahModel){
             resultNum = (inputNum * firstModel);
         }else
-            if([[self getPickerValue:_selectedPickerFirstComponent] isEqual:_uahModel] && [[self getPickerValue:_selectedPickerSecondComponent] isEqual:_uahModel]){
+            if([firstPickerModel isEqual:_uahModel] && [secondPickerModel isEqual:_uahModel]){
                 resultNum = inputNum;
             }else
             resultNum = (inputNum / secondModel)*firstModel;
@@ -109,14 +116,18 @@
 
 #pragma mark - Buttons
 
-- (IBAction)convertButton:(id)sender {
+-(void)textFieldDidChange :(UITextField *)theTextField{
+    
     float result;
+    CurrencyModel *firstPickerModel = [self getPickerValue:_selectedPickerFirstComponent];
+    CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
+    
     if(self.buyVariant){
-        result = [self createResultWith:[self getPickerValue:self.selectedPickerFirstComponent].buyRate and:[self getPickerValue:self.selectedPickerSecondComponent].buyRate];
+        result = [self createResultWith:firstPickerModel.buyRate and:secondPickerModel.buyRate];
     }else{
-        result = [self createResultWith:[self getPickerValue:self.selectedPickerFirstComponent].sellRate and:[self getPickerValue:self.selectedPickerSecondComponent].sellRate];
+        result = [self createResultWith:firstPickerModel.sellRate and:secondPickerModel.sellRate];
     }
-    self.resultLabel.text = [NSString stringWithFormat:@"%.2f",result];
+    self.resultTextField.text = [NSString stringWithFormat:@"%.2f",result];
 }
 
 - (IBAction)buyOrSellTapped:(id)sender {
@@ -144,11 +155,9 @@
         return YES;
     }
     NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
-    for (int i = 0; i < [string length]; i++) {
-        unichar c = [string characterAtIndex:i];
-        if ([myCharSet characterIsMember:c]) {
-            return YES;
-        }
+    NSRange searchRange =  [string rangeOfCharacterFromSet:myCharSet];
+    if(searchRange.location != NSNotFound) {
+        return YES;
     }
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Invalid Input" message:@"Only numbers are allowed for participant number." delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
     [av show];
@@ -173,6 +182,17 @@
     [_summToConvert resignFirstResponder];
 }
 
+#pragma mark - Swipe Recognizer
+
+-(void)addSwipeSegue{
+    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeSegue)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
+}
+
+-(void)swipeSegue{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 @end
