@@ -35,20 +35,10 @@
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.modelsArray = [NSMutableArray new];
-    [self createModels];
-    [self updateLabels];
+    [self createModelsAndUpdateLabels];
     [self addTapAndSwipeRecognizer];
 }
 
-
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    [self createYesterdayModels];
-    [self setCompracion:_rubModel and:_yesterdayRubModel andSet:_rubComprasionImageView];
-    [self setCompracion:_usdModel and:_yesterdayUsdModel andSet:_usdComprasionImageView];
-    [self setCompracion:_eurModel and:_yesterdayEurModel andSet:_eurCompraisonImageView];
-}
 
 #pragma mark - Labels update
 
@@ -63,34 +53,60 @@
     [self lastUpdateDate];
 }
 
+#pragma mark - Check Internet connection
+
+-(void)checkInternetConnection{
+    
+    if(_usdModel.buyRate == 0.f){
+        _errorLabel.hidden = NO;
+    }
+    else
+        _errorLabel.hidden = YES;
+}
+
 #pragma mark - Get models
 
--(void)createModels{
+-(void)createModelsAndUpdateLabels{
     
-    self.modelsArray = [CurrencyModel getCurrencyModels];
-    for(CurrencyModel *model in self.modelsArray){
-        if([model.exchangeToCurrency  isEqual: @"EUR"]){
-            self.eurModel = model;
-        }else
-            if([model.exchangeToCurrency  isEqual: @"RUR"]){
-                self.rubModel = model;
+    [CurrencyModel getCurrencyModels:^(NSMutableArray *array) {
+        self.modelsArray = array;
+        for(CurrencyModel *model in self.modelsArray){
+            if([model.exchangeToCurrency  isEqual: @"EUR"]){
+                self.eurModel = model;
             }else
-                self.usdModel = model;
-    }    
+                if([model.exchangeToCurrency  isEqual: @"RUR"]){
+                    self.rubModel = model;
+                }else
+                    self.usdModel = model;
+        }
+        [self checkInternetConnection];
+        [self updateLabels];
+        [self createYesterdayModels];
+    }];
 }
 
 -(void)createYesterdayModels{
        
-    self.yesterdayModelsArray = [CurrencyModel getYesterdayCurrencyModels];
-    for(CurrencyModel *model in self.yesterdayModelsArray){
-        if([model.exchangeToCurrency  isEqual: @"EUR"]){
-            self.yesterdayEurModel = model;
-        }else
-            if([model.exchangeToCurrency  isEqual: @"RUB"]){
-                self.yesterdayRubModel = model;
+    [CurrencyModel getYesterdayCurrencyModels:^(NSMutableArray *array) {
+        
+        self.yesterdayModelsArray = array;
+        for(CurrencyModel *model in self.yesterdayModelsArray){
+            if([model.exchangeToCurrency  isEqual: @"EUR"]){
+                self.yesterdayEurModel = model;
             }else
-                self.yesterdayUsdModel = model;
-    }
+                if([model.exchangeToCurrency  isEqual: @"RUB"]){
+                    self.yesterdayRubModel = model;
+                }else
+                    self.yesterdayUsdModel = model;
+        }
+        [self setCompracions];
+    }];
+}
+
+-(void)setCompracions{
+    [self setCompracion:_rubModel and:_yesterdayRubModel andSet:_rubComprasionImageView];
+    [self setCompracion:_usdModel and:_yesterdayUsdModel andSet:_usdComprasionImageView];
+    [self setCompracion:_eurModel and:_yesterdayEurModel andSet:_eurCompraisonImageView];
 }
 
 #pragma mark - Update time
@@ -105,8 +121,7 @@
 
 - (IBAction)refreshButtonAction:(id)sender {
     
-    [self createModels];
-    [self updateLabels];
+    [self createModelsAndUpdateLabels];
 }
 
 - (IBAction)moneyConvertButton:(id)sender {

@@ -25,5 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *rubComprasionImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *usdComprasionImageView;
 
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+
 @end
 

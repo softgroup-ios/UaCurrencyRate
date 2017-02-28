@@ -289,6 +289,7 @@
 				TargetAttributes = {
 					9FCBCFE91E5C9AA50086ED80 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = X9J65D7SNF;
 						ProvisioningStyle = Automatic;
 					};
 					9FCBD0021E5C9AA50086ED80 = {
@@ -648,6 +649,7 @@
 			baseConfigurationReference = FDDEB2B8C2898C5A89C6A751 /* Pods-Exchange.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X9J65D7SNF;
 				INFOPLIST_FILE = Exchange/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.Exchange";
@@ -660,6 +662,7 @@
 			baseConfigurationReference = C67F9059012D5F335AB27A5B /* Pods-Exchange.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X9J65D7SNF;
 				INFOPLIST_FILE = Exchange/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.Exchange";

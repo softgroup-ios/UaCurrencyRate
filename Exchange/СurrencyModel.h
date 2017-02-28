@@ -10,12 +10,14 @@
 
 @interface CurrencyModel : NSObject
 
+typedef void(^modelsBlock)(NSMutableArray *array);
+
 @property(strong,nonatomic) NSString *exchangeToCurrency;
 @property(nonatomic,assign) float buyRate;
 @property(nonatomic,assign) float sellRate;
 
-+(NSMutableArray*)getCurrencyModels;
-+(NSArray*)getYesterdayCurrencyModels;
-+(NSArray*)getNeededModels:(NSArray*)firstArray;
++(void)getCurrencyModels:(modelsBlock)completionBlock;
++(void)getYesterdayCurrencyModels:(modelsBlock)completionBlock;
++(NSMutableArray*)getNeededModels:(NSArray*)firstArray;
 
 @end

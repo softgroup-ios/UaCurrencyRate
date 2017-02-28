@@ -12,6 +12,10 @@
 
 @interface ServerManager : NSObject
 
+typedef void (^SuccessDownloadCurrency)(NSMutableArray *models);
+
 + (NSMutableArray*)jsonRequestWithUrl:(NSString*)url;
++ (void) downloadCurrentModelsWithsuccessBlock: (SuccessDownloadCurrency) successBlock;
++ (void) downloadYesterdayModelsWithData:(NSString*)date  andWithsuccessBlock: (SuccessDownloadCurrency) successBlock;
 
 @end

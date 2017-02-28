@@ -7,31 +7,80 @@
 //
 
 #import "ServerManager.h"
+#import "СurrencyModel.h"
 
 
 @implementation ServerManager
 
 
-
-+ (NSMutableArray*)jsonRequestWithUrl:(NSString*)url{
-
-    NSMutableArray *allElements = [NSMutableArray new];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"content-type"];
-    NSURLResponse *response;
++ (NSMutableArray*)jsonRequestWithUrl:(NSString*)url
+{
     NSError *error;
-    
-    NSURLSessionDataTask *aData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (aData) {
-        
-        allElements = (NSMutableArray*)[NSJSONSerialization JSONObjectWithData:aData options:kNilOptions error:&error];
-        
-        NSLog(@"jsonReturn %@",allElements);
-    }
+    NSData *jsonData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:url]];
+    NSMutableArray *allElements = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
     return allElements;
+}
+
++ (void) downloadCurrentModelsWithsuccessBlock: (SuccessDownloadCurrency) successBlock{
+    
+    NSURL *url = [NSURL URLWithString:@"https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* data, NSURLResponse* response, NSError * error) {
+        
+        if (!data||error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(nil);
+                NSLog(@"%@",error);
+            });
+            return;
+        }
+        
+        NSMutableArray *arrayWithModels = [NSMutableArray new];
+        NSMutableArray *allElements = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        for(NSDictionary *jsonModel in allElements){
+            CurrencyModel *model = [CurrencyModel new];
+            model.exchangeToCurrency = [jsonModel objectForKey:@"ccy"];
+            model.buyRate = [[jsonModel objectForKey:@"buy"] floatValue];
+            model.sellRate = [[jsonModel objectForKey:@"sale"] floatValue];
+            [arrayWithModels addObject:model];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            successBlock(arrayWithModels);
+        });
+    }] resume];
+}
+
++ (void) downloadYesterdayModelsWithData:(NSString*)date
+                     andWithsuccessBlock:(SuccessDownloadCurrency) successBlock{
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.privatbank.ua/p24api/exchange_rates?json&date=23.02.2017",date]];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* data, NSURLResponse* response, NSError * error) {
+        
+        if (!data||error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successBlock(nil);
+            });
+            return;
+        }
+        
+        NSMutableArray *unsortedModelsArray = [NSMutableArray new];
+        NSDictionary *allElements = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        NSArray *exchangeRate = [allElements objectForKey:@"exchangeRate"];
+        for(NSDictionary *jsonModel in exchangeRate){
+            
+            CurrencyModel *model = [CurrencyModel new];
+            model.exchangeToCurrency = [jsonModel objectForKey:@"currency"];
+            model.buyRate = [[jsonModel objectForKey:@"purchaseRateNB"] floatValue];
+            model.sellRate = [[jsonModel objectForKey:@"saleRateNB"] floatValue];
+            [unsortedModelsArray addObject:model];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            successBlock(unsortedModelsArray);
+        });
+    }] resume];
 }
 
 @end

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,29 +18,40 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CURRENCY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0J2-9T-nWZ">
-                                <rect key="frame" x="112" y="387" width="150" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CURRENCY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0J2-9T-nWZ">
+                                <rect key="frame" x="131.66666666666669" y="443" width="150.00000000000006" height="42"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="30"/>
                                 <color key="textColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UA TRACKER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbC-Ll-IAP">
-                                <rect key="frame" x="112" y="410" width="150" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UA TRACKER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbC-Ll-IAP">
+                                <rect key="frame" x="131.66666666666669" y="470" width="150.00000000000006" height="38"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="27"/>
                                 <color key="textColor" red="0.99916023015975952" green="0.77593356370925903" blue="0.10500247031450272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gold_earth" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-wP-EDW">
-                                <rect key="frame" x="112" y="229" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold_earth" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-wP-EDW">
+                                <rect key="frame" x="132" y="293" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="IDR-wM-CsT"/>
+                                    <constraint firstAttribute="height" constant="150" id="wlB-M0-StH"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.18200889229774475" green="0.20988819003105164" blue="0.25958013534545898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cbC-Ll-IAP" firstAttribute="top" secondItem="0J2-9T-nWZ" secondAttribute="bottom" constant="-15" id="59v-t0-ktZ"/>
+                            <constraint firstItem="0J2-9T-nWZ" firstAttribute="top" secondItem="Xv6-wP-EDW" secondAttribute="bottom" id="Btc-HH-jH2"/>
+                            <constraint firstItem="cbC-Ll-IAP" firstAttribute="centerX" secondItem="Xv6-wP-EDW" secondAttribute="centerX" id="KFO-nn-liB"/>
+                            <constraint firstItem="Xv6-wP-EDW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Nvj-hY-L5Y"/>
+                            <constraint firstItem="Xv6-wP-EDW" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="UkW-0j-BPh"/>
+                            <constraint firstItem="0J2-9T-nWZ" firstAttribute="width" secondItem="Xv6-wP-EDW" secondAttribute="width" id="bgH-Bg-Ky5"/>
+                            <constraint firstItem="cbC-Ll-IAP" firstAttribute="width" secondItem="0J2-9T-nWZ" secondAttribute="width" id="l2F-dk-D0B"/>
+                            <constraint firstItem="0J2-9T-nWZ" firstAttribute="centerX" secondItem="Xv6-wP-EDW" secondAttribute="centerX" id="uka-nY-lFC"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

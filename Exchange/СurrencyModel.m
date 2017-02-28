@@ -11,44 +11,36 @@
 
 @implementation CurrencyModel
 
-+(NSMutableArray*)getCurrencyModels{
++(void)getCurrencyModels:(modelsBlock)completionBlock{
     
-    NSMutableArray *arrayWithModels = [NSMutableArray new];
-    NSArray *recievedJSONArray = [ServerManager jsonRequestWithUrl:@"https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"];
-    for(NSDictionary *jsonModel in recievedJSONArray){
-        
-        CurrencyModel *model = [CurrencyModel new];
-        model.exchangeToCurrency = [jsonModel objectForKey:@"ccy"];
-        model.buyRate = [[jsonModel objectForKey:@"buy"] floatValue];
-        model.sellRate = [[jsonModel objectForKey:@"sale"] floatValue];
-        [arrayWithModels addObject:model];
-    }
-    return arrayWithModels;
+    [ServerManager downloadCurrentModelsWithsuccessBlock:^(NSMutableArray *models) {
+        if(models){
+            completionBlock(models);
+        }else{
+            completionBlock(nil);
+        }
+    }];
 }
 
-+(NSArray*)getYesterdayCurrencyModels{
++(void)getYesterdayCurrencyModels:(modelsBlock)completionBlock{
     
     NSDate *today = [NSDate date];
     NSDate *yesterday = [today dateByAddingTimeInterval: -345600.0];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd.MM.yyyy"];
     NSString *dateString = [dateFormat stringFromDate:yesterday];
-    NSMutableArray *unsortedModelsArray = [NSMutableArray new];
-    NSDictionary *recievedJSONArray = [ServerManager jsonRequestWithUrl:[NSString stringWithFormat:@"https://api.privatbank.ua/p24api/exchange_rates?json&date=%@",dateString]];
-    NSArray *exchangeRate = [recievedJSONArray objectForKey:@"exchangeRate"];
-    for(NSDictionary *jsonModel in exchangeRate){
-        
-        CurrencyModel *model = [CurrencyModel new];
-        model.exchangeToCurrency = [jsonModel objectForKey:@"currency"];
-        model.buyRate = [[jsonModel objectForKey:@"purchaseRateNB"] floatValue];
-        model.sellRate = [[jsonModel objectForKey:@"saleRateNB"] floatValue];
-        [unsortedModelsArray addObject:model];
-    }
-    NSArray *resultArray = [self getNeededModels:unsortedModelsArray];
-    return resultArray;
+    
+    [ServerManager downloadYesterdayModelsWithData:dateString andWithsuccessBlock:^(NSMutableArray *models) {
+        if(models){
+            NSMutableArray *resultArray = [self getNeededModels:models];
+            completionBlock(resultArray);
+        }else{
+            completionBlock(nil);
+        }
+    }];
 }
 
-+(NSArray*)getNeededModels:(NSArray*)firstArray{
++(NSMutableArray*)getNeededModels:(NSArray*)firstArray{
     
     NSMutableArray *sortedModelsArray = [NSMutableArray new];
     for(CurrencyModel *model in firstArray){
