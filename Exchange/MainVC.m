@@ -52,6 +52,7 @@
     self.rubBuy.text = [NSString stringWithFormat:@"%.2f",self.rubModel.buyRate];
     self.rubSell.text = [NSString stringWithFormat:@"%.2f",self.rubModel.sellRate];
     [self lastUpdateDate];
+    [self stopIndicators];
 }
 
 #pragma mark - Check Internet connection
@@ -83,7 +84,15 @@
         [self checkInternetConnection];
         [self updateLabels];
         [self createYesterdayModels];
+        
     }];
+}
+
+-(void)stopIndicators{
+    
+    for(UIActivityIndicatorView *indicator in _rateActivityIndicators){
+        [indicator stopAnimating];
+    }
 }
 
 -(void)createYesterdayModels{

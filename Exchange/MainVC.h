@@ -27,5 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
 
+@property (strong, nonatomic) IBOutletCollection(UIActivityIndicatorView) NSArray *rateActivityIndicators;
+
+
 @end
 
