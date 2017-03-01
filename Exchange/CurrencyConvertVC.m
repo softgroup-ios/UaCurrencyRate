@@ -12,9 +12,10 @@
 @interface CurrencyConvertVC () <UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate>
 
 @property(strong,nonatomic) NSArray *pickerData;
-@property(nonatomic, assign) BOOL buyVariant;
 @property(assign,nonatomic) NSInteger selectedPickerFirstComponent;
 @property(assign,nonatomic) NSInteger selectedPickerSecondComponent;
+@property(assign,nonatomic) float pickerRect;
+@property(nonatomic, assign) BOOL buyVariant;
 
 @end
 
@@ -22,34 +23,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self addSwipeSegue];
-    [self customKeyBoard];
-    self.summToConvert.delegate = self;
+    
+    [_summToConvert addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
     self.uahModel.buyRate = 1.0f;
     self.uahModel.sellRate = 1.0f;
     self.pickerData = @[@"USD",@"EUR",@"UAH",@"RUB"];
     self.valuePicker.dataSource = self;
     self.valuePicker.delegate = self;
-    [_summToConvert addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    self.summToConvert.delegate = self;
+    
+    self.buyVariant = NO;
+    [self addGestureRecognizers];
+    [self customKeyBoard];
 }
 
 
 #pragma mark - Picker Delegate
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+
     return 2;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+
     return self.pickerData.count;
 }
 
-// The data to return for the row and component (column) that's being passed in
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+
     return self.pickerData[row];
 }
 
@@ -69,10 +72,10 @@
     
 }
 
-- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:self.pickerData[row] attributes:@{NSForegroundColorAttributeName:WHITE_COLOR}];
-    return attString;
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    NSAttributedString *styledString = [[NSAttributedString alloc] initWithString:self.pickerData[row] attributes:@{NSForegroundColorAttributeName:WHITE_COLOR}];
+    return styledString;
 }
 
 - (CurrencyModel*)getPickerValue:(NSInteger)numberOfSelection{
@@ -95,8 +98,8 @@
 
 -(float)createResultWith:(float)firstModel and:(float)secondModel{
     
-
-    float inputNum = [_summToConvert.text floatValue];
+    NSNumber *number = [[NSNumberFormatter new] numberFromString: _summToConvert.text];
+    float inputNum = number.floatValue;
     float resultNum;
     CurrencyModel *firstPickerModel = [self getPickerValue:_selectedPickerFirstComponent];
     CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
@@ -130,15 +133,36 @@
     self.resultTextField.text = [NSString stringWithFormat:@"%.2f",result];
 }
 
+- (IBAction)showPickeButton:(id)sender {
+
+    _valuePicker.hidden = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.valuePicker.alpha = 1.f;
+        _fromLabel.alpha = 1.f;
+        _toLabel.alpha = 1.f;
+    }];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
+    [self doneWithNumberPad];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.valuePicker.alpha = 0.f;
+        _fromLabel.alpha = 0.f;
+        _toLabel.alpha = 0.f;
+    } completion:^(BOOL finished) {
+        _valuePicker.hidden = YES;
+    }];
+}
+
 - (IBAction)buyOrSellTapped:(id)sender {
     
-    if(self.buyOrSell.selectedSegmentIndex==0){
-        
-        self.buyVariant = NO;
+    if(self.buyOrSell.selectedSegmentIndex == 0){
+        self.buyVariant = YES;
+        [self textFieldDidChange:_resultTextField];
     }
     else {
-        
-        self.buyVariant = YES;
+        self.buyVariant = NO;
+        [self textFieldDidChange:_resultTextField];
     }
 }
 
@@ -184,15 +208,21 @@
 
 #pragma mark - Swipe Recognizer
 
--(void)addSwipeSegue{
-    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeSegue)];
+-(void)addGestureRecognizers{
+    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(swipeSegue)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
 }
 
 -(void)swipeSegue{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 
 @end

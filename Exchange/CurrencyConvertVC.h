@@ -24,10 +24,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *summToConvert;
 @property (weak, nonatomic) IBOutlet UITextField *resultTextField;
 
-
-
+- (IBAction)showPickeButton:(id)sender;
 - (IBAction)buyOrSellTapped:(id)sender;
 - (IBAction)backButtonAction:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *fromLabel;
+@property (weak, nonatomic) IBOutlet UILabel *toLabel;
 
 
 @end

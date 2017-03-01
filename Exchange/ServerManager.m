@@ -13,14 +13,6 @@
 @implementation ServerManager
 
 
-+ (NSMutableArray*)jsonRequestWithUrl:(NSString*)url
-{
-    NSError *error;
-    NSData *jsonData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:url]];
-    NSMutableArray *allElements = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-    return allElements;
-}
-
 + (void) downloadCurrentModelsWithsuccessBlock: (SuccessDownloadCurrency) successBlock{
     
     NSURL *url = [NSURL URLWithString:@"https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"];
@@ -54,7 +46,7 @@
 + (void) downloadYesterdayModelsWithData:(NSString*)date
                      andWithsuccessBlock:(SuccessDownloadCurrency) successBlock{
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.privatbank.ua/p24api/exchange_rates?json&date=23.02.2017",date]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.privatbank.ua/p24api/exchange_rates?json&date=%@",date]];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
     
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* data, NSURLResponse* response, NSError * error) {

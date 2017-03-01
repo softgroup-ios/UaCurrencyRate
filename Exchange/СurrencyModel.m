@@ -25,7 +25,7 @@
 +(void)getYesterdayCurrencyModels:(modelsBlock)completionBlock{
     
     NSDate *today = [NSDate date];
-    NSDate *yesterday = [today dateByAddingTimeInterval: -345600.0];
+    NSDate *yesterday = [today dateByAddingTimeInterval: -259200.0];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd.MM.yyyy"];
     NSString *dateString = [dateFormat stringFromDate:yesterday];

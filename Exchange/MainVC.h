@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *usdSell;
 @property (weak, nonatomic) IBOutlet UILabel *eurBuy;
 @property (weak, nonatomic) IBOutlet UILabel *eurSell;
-@property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
 
 - (IBAction)refreshButtonAction:(id)sender;
 - (IBAction)moneyConvertButton:(id)sender;
@@ -26,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *usdComprasionImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
 
 @end
 

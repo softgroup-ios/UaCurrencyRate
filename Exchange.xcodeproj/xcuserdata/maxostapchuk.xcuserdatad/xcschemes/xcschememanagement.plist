@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CurrencyKeyboard.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>Exchange.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>9F190D301E670F1C0056E058</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9FCBCFE91E5C9AA50086ED80</key>
 		<dict>
 			<key>primary</key>

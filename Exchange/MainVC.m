@@ -17,10 +17,11 @@
 
 @property(strong,nonatomic) NSMutableArray *modelsArray;
 @property(strong,nonatomic) NSArray *yesterdayModelsArray;
+@property(strong,nonatomic) NSDateFormatter *lastUpdateTime;
+
 @property(strong,nonatomic) CurrencyModel *eurModel;
 @property(strong,nonatomic) CurrencyModel *rubModel;
 @property(strong,nonatomic) CurrencyModel *usdModel;
-@property(strong,nonatomic) NSDateFormatter *lastUpdateTime;
 
 @property(strong,nonatomic) CurrencyModel *yesterdayEurModel;
 @property(strong,nonatomic) CurrencyModel *yesterdayRubModel;
@@ -114,7 +115,7 @@
 -(void)lastUpdateDate{
     
     NSDate* now = [NSDate date];
-    self.lastUpdateLabel.text = [NSString stringWithFormat:@"Last update - %@",[self convertDateToString:now]];
+    self.lastUpdateLabel.text = [NSString stringWithFormat:@"Last info update - %@",[self convertDateToString:now]];
 }
 
 #pragma mark - VC buttons
@@ -245,8 +246,7 @@
         convertVC.eurModel = self.eurModel;
         convertVC.rubModel = self.rubModel;
         convertVC.usdModel = self.usdModel;
-    }
-    
+    }    
 }
 
 @end
