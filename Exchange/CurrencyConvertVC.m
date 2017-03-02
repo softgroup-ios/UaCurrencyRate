@@ -38,6 +38,8 @@
     self.buyVariant = NO;
     [self addGestureRecognizers];
     [self customKeyBoard];
+    
+    [self addLongPress];
 }
 
 
@@ -220,6 +222,31 @@
     } completion:^(BOOL finished) {
         _valuePicker.hidden = YES;
     }];
+}
+
+#pragma mark - Pashalki
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gesture {
+    if(UIGestureRecognizerStateBegan == gesture.state) {
+        _backGroundImage.image = [UIImage imageNamed:@"trump"];
+
+    }
+    
+    if(UIGestureRecognizerStateChanged == gesture.state) {
+        // Do repeated work here (repeats continuously) while finger is down
+    }
+    
+    if(UIGestureRecognizerStateEnded == gesture.state) {
+        
+    }
+}
+
+-(void)addLongPress{
+    _longPress = [[UILongPressGestureRecognizer alloc]
+                  initWithTarget:self
+                  action:@selector(handleLongPress:)];
+    _longPress.minimumPressDuration = 2.0;
+    [self.view addGestureRecognizer:_longPress];
 }
 
 @end

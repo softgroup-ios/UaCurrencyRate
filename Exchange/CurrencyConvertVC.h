@@ -28,9 +28,13 @@
 - (IBAction)buyOrSellTapped:(id)sender;
 - (IBAction)backButtonAction:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UIButton *showPickerBtn;
+
+-  (void)handleLongPress:(UILongPressGestureRecognizer*)sender;
+@property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *longPress;
 
 
 @end

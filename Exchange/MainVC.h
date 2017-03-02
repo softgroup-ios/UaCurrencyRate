@@ -23,12 +23,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *eurCompraisonImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *rubComprasionImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *usdComprasionImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
 
 @property (strong, nonatomic) IBOutletCollection(UIActivityIndicatorView) NSArray *rateActivityIndicators;
 
+@property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *topLongPress;
 
 @end
 

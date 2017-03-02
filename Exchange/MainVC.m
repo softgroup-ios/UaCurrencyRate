@@ -27,6 +27,7 @@
 @property(strong,nonatomic) CurrencyModel *yesterdayEurModel;
 @property(strong,nonatomic) CurrencyModel *yesterdayRubModel;
 @property(strong,nonatomic) CurrencyModel *yesterdayUsdModel;
+@property(assign,nonatomic) NSInteger *pepeCryConuter;
 
 @end
 
@@ -39,8 +40,13 @@
     self.modelsArray = [NSMutableArray new];
     [self createModelsAndUpdateLabels];
     [self addTapAndSwipeRecognizer];
+    [self addLongPress];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.backGroundImage.image = [UIImage imageNamed:@"internet"];
+}
 
 #pragma mark - Labels update
 
@@ -129,7 +135,12 @@
 
 - (IBAction)refreshButtonAction:(id)sender {
     
+    self.pepeCryConuter =self.pepeCryConuter+1;
     [self createModelsAndUpdateLabels];
+    if(self.pepeCryConuter == (NSInteger*)80){
+        _backGroundImage.image = [UIImage imageNamed:@"pepecry"];
+        self.pepeCryConuter = 0;
+    }
 }
 
 - (IBAction)moneyConvertButton:(id)sender {
@@ -262,6 +273,30 @@
 
 -(void)swipeSegue{
     [self performSegueWithIdentifier:@"convertSegue" sender:nil];
+}
+
+#pragma mark - Pashalki
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gesture {
+    if(UIGestureRecognizerStateBegan == gesture.state) {
+        _backGroundImage.image = [UIImage imageNamed:@"pepetrump"];
+    }
+    
+    if(UIGestureRecognizerStateChanged == gesture.state) {
+        // Do repeated work here (repeats continuously) while finger is down
+    }
+    
+    if(UIGestureRecognizerStateEnded == gesture.state) {
+        
+    }
+}
+
+-(void)addLongPress{
+    _topLongPress = [[UILongPressGestureRecognizer alloc]
+                  initWithTarget:self
+                  action:@selector(handleLongPress:)];
+    _topLongPress.minimumPressDuration = 2.0;
+    [self.view addGestureRecognizer:_topLongPress];
 }
 
 //#pragma mark - Animated Transiton
