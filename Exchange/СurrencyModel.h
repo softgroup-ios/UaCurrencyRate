@@ -18,6 +18,5 @@ typedef void(^modelsBlock)(NSMutableArray *array);
 
 +(void)getCurrencyModels:(modelsBlock)completionBlock;
 +(void)getYesterdayCurrencyModels:(modelsBlock)completionBlock;
-+(NSMutableArray*)getNeededModels:(NSArray*)firstArray;
 
 @end

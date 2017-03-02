@@ -11,9 +11,10 @@
 #import "ServerManager.h"
 #import "СurrencyModel.h"
 #import "CurrencyConvertVC.h"
+#import "SwatchTransition.h"
 
 
-@interface MainVC ()
+@interface MainVC () <UINavigationControllerDelegate>
 
 @property(strong,nonatomic) NSMutableArray *modelsArray;
 @property(strong,nonatomic) NSArray *yesterdayModelsArray;
@@ -88,12 +89,6 @@
     }];
 }
 
--(void)stopIndicators{
-    
-    for(UIActivityIndicatorView *indicator in _rateActivityIndicators){
-        [indicator stopAnimating];
-    }
-}
 
 -(void)createYesterdayModels{
        
@@ -113,18 +108,21 @@
     }];
 }
 
--(void)setCompracions{
-    [self setCompracion:_rubModel and:_yesterdayRubModel andSet:_rubComprasionImageView];
-    [self setCompracion:_usdModel and:_yesterdayUsdModel andSet:_usdComprasionImageView];
-    [self setCompracion:_eurModel and:_yesterdayEurModel andSet:_eurCompraisonImageView];
-}
 
-#pragma mark - Update time
+
+#pragma mark - Update time / Stop indicators
 
 -(void)lastUpdateDate{
     
     NSDate* now = [NSDate date];
-    self.lastUpdateLabel.text = [NSString stringWithFormat:@"Last info update - %@",[self convertDateToString:now]];
+    self.lastUpdateLabel.text = [NSString stringWithFormat:@"Last rate update - %@",[self convertDateToString:now]];
+}
+
+-(void)stopIndicators{
+    
+    for(UIActivityIndicatorView *indicator in _rateActivityIndicators){
+        [indicator stopAnimating];
+    }
 }
 
 #pragma mark - VC buttons
@@ -156,6 +154,12 @@
     }
 }
 
+-(void)setCompracions{
+    [self setCompracion:_rubModel and:_yesterdayRubModel andSet:_rubComprasionImageView];
+    [self setCompracion:_usdModel and:_yesterdayUsdModel andSet:_usdComprasionImageView];
+    [self setCompracion:_eurModel and:_yesterdayEurModel andSet:_eurCompraisonImageView];
+}
+
 #pragma mark - Compracion View
 
 -(void)addTapAndSwipeRecognizer{
@@ -177,9 +181,6 @@
     [self.view addGestureRecognizer:recognizer];
 }
 
--(void)swipeSegue{
-    [self performSegueWithIdentifier:@"convertSegue" sender:nil];
-}
 
 -(void)tapDetected:(UITapGestureRecognizer *)recognizer{
     
@@ -248,14 +249,33 @@
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
+      
     if ([segue.identifier isEqualToString:@"convertSegue"]) {
-        
         CurrencyConvertVC *convertVC = segue.destinationViewController;
+        self.navigationController.delegate = self;
         convertVC.eurModel = self.eurModel;
         convertVC.rubModel = self.rubModel;
         convertVC.usdModel = self.usdModel;
     }    
 }
+
+
+-(void)swipeSegue{
+    [self performSegueWithIdentifier:@"convertSegue" sender:nil];
+}
+
+//#pragma mark - Animated Transiton
+//
+//-(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
+//{
+//    if (operation == UINavigationControllerOperationPush) {
+//        SwatchTransition * animator = [SwatchTransition new];
+//        animator.mode = SwatchTransitionModePresent;
+//        return  animator;
+//    }
+//    return nil;
+//}
+
+
 
 @end

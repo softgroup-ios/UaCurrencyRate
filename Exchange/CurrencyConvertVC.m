@@ -33,6 +33,8 @@
     self.valuePicker.delegate = self;
     self.summToConvert.delegate = self;
     
+    _showPickerBtn.layer.cornerRadius = 4;
+    _showPickerBtn.clipsToBounds = YES;
     self.buyVariant = NO;
     [self addGestureRecognizers];
     [self customKeyBoard];
@@ -105,52 +107,24 @@
     CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
     
     if(firstPickerModel == _uahModel){
-        resultNum = (inputNum / secondModel);
+            resultNum = (inputNum / secondModel);
     }else
         if(secondPickerModel == _uahModel){
             resultNum = (inputNum * firstModel);
         }else
-            if([firstPickerModel isEqual:_uahModel] && [secondPickerModel isEqual:_uahModel]){
-                resultNum = inputNum;
-            }else
             resultNum = (inputNum / secondModel)*firstModel;
     return resultNum;
 }
 
 #pragma mark - Buttons
 
--(void)textFieldDidChange :(UITextField *)theTextField{
-    
-    float result;
-    CurrencyModel *firstPickerModel = [self getPickerValue:_selectedPickerFirstComponent];
-    CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
-    
-    if(self.buyVariant){
-        result = [self createResultWith:firstPickerModel.buyRate and:secondPickerModel.buyRate];
-    }else{
-        result = [self createResultWith:firstPickerModel.sellRate and:secondPickerModel.sellRate];
-    }
-    self.resultTextField.text = [NSString stringWithFormat:@"%.2f",result];
-}
-
-- (IBAction)showPickeButton:(id)sender {
+- (IBAction)showPickerButton:(id)sender {
 
     _valuePicker.hidden = NO;
     [UIView animateWithDuration:0.2 animations:^{
         self.valuePicker.alpha = 1.f;
         _fromLabel.alpha = 1.f;
         _toLabel.alpha = 1.f;
-    }];
-}
-
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
-    [self doneWithNumberPad];
-    [UIView animateWithDuration:0.4 animations:^{
-        self.valuePicker.alpha = 0.f;
-        _fromLabel.alpha = 0.f;
-        _toLabel.alpha = 0.f;
-    } completion:^(BOOL finished) {
-        _valuePicker.hidden = YES;
     }];
 }
 
@@ -188,6 +162,20 @@
     return NO;
 }
 
+-(void)textFieldDidChange :(UITextField *)theTextField{
+    
+    float result;
+    CurrencyModel *firstPickerModel = [self getPickerValue:_selectedPickerFirstComponent];
+    CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
+    
+    if(self.buyVariant){
+        result = [self createResultWith:firstPickerModel.buyRate and:secondPickerModel.buyRate];
+    }else{
+        result = [self createResultWith:firstPickerModel.sellRate and:secondPickerModel.sellRate];
+    }
+    self.resultTextField.text = [NSString stringWithFormat:@"%.2f",result];
+}
+
 #pragma mark - Keyboard
 
 -(void)customKeyBoard{
@@ -223,6 +211,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
+    [self doneWithNumberPad];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.valuePicker.alpha = 0.f;
+        _fromLabel.alpha = 0.f;
+        _toLabel.alpha = 0.f;
+    } completion:^(BOOL finished) {
+        _valuePicker.hidden = YES;
+    }];
+}
 
 @end

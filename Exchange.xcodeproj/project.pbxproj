@@ -10,8 +10,7 @@
 		0113341DE58ABE33BA88126D /* libPods-Exchange.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D389B3CE6C7563BAF4D55C5 /* libPods-Exchange.a */; };
 		0286000993E73DAA5BEA93AB /* libPods-ExchangeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D72B3AB1D93154F483D432 /* libPods-ExchangeTests.a */; };
 		44EFE56473820D8767D6006C /* libPods-ExchangeUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0EBB578C5DBFE784401403 /* libPods-ExchangeUITests.a */; };
-		9F190D351E670F1C0056E058 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F190D341E670F1C0056E058 /* KeyboardViewController.m */; };
-		9F190D391E670F1C0056E058 /* CurrencyKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F190D311E670F1C0056E058 /* CurrencyKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9F07F72D1E6847150029273B /* SwatchTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F07F72C1E6847150029273B /* SwatchTransition.m */; };
 		9F655F9D1E5D8D1000722398 /* CurrencyConvertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F655F9C1E5D8D1000722398 /* CurrencyConvertVC.m */; };
 		9FCBCFEF1E5C9AA50086ED80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBCFEE1E5C9AA50086ED80 /* main.m */; };
 		9FCBCFF21E5C9AA50086ED80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBCFF11E5C9AA50086ED80 /* AppDelegate.m */; };
@@ -26,13 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9F190D371E670F1C0056E058 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FCBCFE21E5C9AA50086ED80 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9F190D301E670F1C0056E058;
-			remoteInfo = CurrencyKeyboard;
-		};
 		9FCBD0041E5C9AA50086ED80 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FCBCFE21E5C9AA50086ED80 /* Project object */;
@@ -49,20 +41,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		9F190D3D1E670F1C0056E058 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				9F190D391E670F1C0056E058 /* CurrencyKeyboard.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		1CAF4BBF2180106F4CC0F899 /* Pods-ExchangeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExchangeTests/Pods-ExchangeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		291055663C8D7A802BE23117 /* Pods-ExchangeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExchangeTests/Pods-ExchangeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -70,10 +48,9 @@
 		3CF950049846194DCCA41CDE /* Pods-ExchangeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExchangeUITests/Pods-ExchangeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5D389B3CE6C7563BAF4D55C5 /* libPods-Exchange.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Exchange.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D72B3AB1D93154F483D432 /* libPods-ExchangeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExchangeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F07F72B1E6847150029273B /* SwatchTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchTransition.h; sourceTree = "<group>"; };
+		9F07F72C1E6847150029273B /* SwatchTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchTransition.m; sourceTree = "<group>"; };
 		9F190D311E670F1C0056E058 /* CurrencyKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CurrencyKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F190D331E670F1C0056E058 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
-		9F190D341E670F1C0056E058 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
-		9F190D361E670F1C0056E058 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F655F9A1E5D7EB800722398 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		9F655F9B1E5D8D1000722398 /* CurrencyConvertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyConvertVC.h; sourceTree = "<group>"; };
 		9F655F9C1E5D8D1000722398 /* CurrencyConvertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyConvertVC.m; sourceTree = "<group>"; };
@@ -150,16 +127,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		9F190D321E670F1C0056E058 /* CurrencyKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				9F190D331E670F1C0056E058 /* KeyboardViewController.h */,
-				9F190D341E670F1C0056E058 /* KeyboardViewController.m */,
-				9F190D361E670F1C0056E058 /* Info.plist */,
-			);
-			path = CurrencyKeyboard;
-			sourceTree = "<group>";
-		};
 		9F655F991E5D780A00722398 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,7 +144,6 @@
 				9FCBCFEC1E5C9AA50086ED80 /* Exchange */,
 				9FCBD0061E5C9AA50086ED80 /* ExchangeTests */,
 				9FCBD0111E5C9AA50086ED80 /* ExchangeUITests */,
-				9F190D321E670F1C0056E058 /* CurrencyKeyboard */,
 				9FCBCFEB1E5C9AA50086ED80 /* Products */,
 				11EA4E1E1A08D71DCB47BDBB /* Pods */,
 				C6D88A998D1CA289518965FB /* Frameworks */,
@@ -208,6 +174,8 @@
 				9FCBCFFB1E5C9AA50086ED80 /* LaunchScreen.storyboard */,
 				9FCBCFFE1E5C9AA50086ED80 /* Info.plist */,
 				9FCBCFED1E5C9AA50086ED80 /* Supporting Files */,
+				9F07F72B1E6847150029273B /* SwatchTransition.h */,
+				9F07F72C1E6847150029273B /* SwatchTransition.m */,
 			);
 			path = Exchange;
 			sourceTree = "<group>";
@@ -289,12 +257,10 @@
 				9FCBCFE81E5C9AA50086ED80 /* Resources */,
 				283D4AEDA9BFD2E7C1F60E2A /* [CP] Embed Pods Frameworks */,
 				C9A348B52B55FF0C4E9E0792 /* [CP] Copy Pods Resources */,
-				9F190D3D1E670F1C0056E058 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9F190D381E670F1C0056E058 /* PBXTargetDependency */,
 			);
 			name = Exchange;
 			productName = Exchange;
@@ -572,7 +538,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F190D351E670F1C0056E058 /* KeyboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +547,7 @@
 			files = (
 				9FCBD0231E5CA1D60086ED80 /* ServerManager.m in Sources */,
 				9F655F9D1E5D8D1000722398 /* CurrencyConvertVC.m in Sources */,
+				9F07F72D1E6847150029273B /* SwatchTransition.m in Sources */,
 				9FCBD0261E5CA47F0086ED80 /* СurrencyModel.m in Sources */,
 				9FCBCFF51E5C9AA50086ED80 /* MainVC.m in Sources */,
 				9FCBCFF21E5C9AA50086ED80 /* AppDelegate.m in Sources */,
@@ -608,11 +574,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9F190D381E670F1C0056E058 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9F190D301E670F1C0056E058 /* CurrencyKeyboard */;
-			targetProxy = 9F190D371E670F1C0056E058 /* PBXContainerItemProxy */;
-		};
 		9FCBD0051E5C9AA50086ED80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9FCBCFE91E5C9AA50086ED80 /* Exchange */;
@@ -845,6 +806,7 @@
 				9F190D3B1E670F1C0056E058 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FCBCFE51E5C9AA50086ED80 /* Build configuration list for PBXProject "Exchange" */ = {
 			isa = XCConfigurationList;
