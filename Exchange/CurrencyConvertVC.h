@@ -12,7 +12,7 @@
 #import "MainVC.h"
 
 
-@interface CurrencyConvertVC : UIViewController <RZTransitionInteractionControllerDelegate>
+@interface CurrencyConvertVC : UIViewController 
 
 @property(strong,nonatomic) CurrencyModel *eurModel;
 @property(strong,nonatomic) CurrencyModel *rubModel;
