@@ -8,22 +8,21 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>Pods-ExchangeTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods-ExchangeUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
+		</dict>
+		<key>RZTransitions.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -33,12 +32,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2E846AACC7D2A64CE46D2F9014BEB853</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9F4F3A749C500D104D32BFCE534CC4D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FAD127FFF86C6B652588B1EEC19DE7EF</key>
+		<key>CF8C158F547016A0E2F4B1E70014547A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

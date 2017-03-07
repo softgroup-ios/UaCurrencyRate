@@ -9,7 +9,7 @@
 #import "CurrencyConvertVC.h"
 #import "constants.h"
 
-@interface CurrencyConvertVC () <UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate>
+@interface CurrencyConvertVC () <UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate, UIViewControllerTransitioningDelegate>
 
 @property(strong,nonatomic) NSArray *pickerData;
 @property(assign,nonatomic) NSInteger selectedPickerFirstComponent;
@@ -25,7 +25,11 @@
     [super viewDidLoad];
     
     [_summToConvert addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    
+    UIFont *font = [UIFont boldSystemFontOfSize:15.0f];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [_buyOrSell setTitleTextAttributes:attributes
+                                    forState:UIControlStateNormal];
     self.uahModel.buyRate = 1.0f;
     self.uahModel.sellRate = 1.0f;
     self.pickerData = @[@"USD",@"EUR",@"UAH",@"RUB"];
@@ -35,11 +39,19 @@
     
     _showPickerBtn.layer.cornerRadius = 4;
     _showPickerBtn.clipsToBounds = YES;
-    self.buyVariant = NO;
+    self.buyVariant = YES;
     [self addGestureRecognizers];
     [self customKeyBoard];
-    
     [self addLongPress];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.backGroundImage.image = [UIImage imageNamed:@"internet"];
+    self.summToConvert.text = @"";
+    self.resultTextField.text = @"";
+    self.valuePicker.hidden = YES;
+    [_summToConvert resignFirstResponder];
 }
 
 
@@ -64,10 +76,12 @@
     
     switch (component) {
         case 0:
+            self.fromCurrencyLabel.text = self.pickerData[row];
             self.selectedPickerFirstComponent = row;
             [self textFieldDidChange:_resultTextField];
             break;
         case 1:
+            self.toCurrencyLabel.text = self.pickerData[row];
             self.selectedPickerSecondComponent = row;
             [self textFieldDidChange:_resultTextField];
         default:
@@ -96,7 +110,16 @@
                 return _rubModel;
 }
 
-
+-(void)swapValues{
+    
+    NSInteger tmp = self.selectedPickerFirstComponent;
+    [self.valuePicker selectRow:self.selectedPickerSecondComponent inComponent:0 animated:NO];
+    [self.valuePicker selectRow:tmp inComponent:1 animated:NO];
+    NSString *tmpStr = self.fromCurrencyLabel.text;
+    self.fromCurrencyLabel.text = self.toCurrencyLabel.text;
+    self.toCurrencyLabel.text = tmpStr;
+    [self textFieldDidChange:_resultTextField];
+}
 
 #pragma mark - Calculate result of converting
 
@@ -127,24 +150,42 @@
         self.valuePicker.alpha = 1.f;
         _fromLabel.alpha = 1.f;
         _toLabel.alpha = 1.f;
+        self.equalsArrow.alpha = 0.f;
+        _fromCurrencyLabel.alpha = 0.f;
+        _toCurrencyLabel.alpha = 0.f;
+    }];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
+    [self doneWithNumberPad];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.valuePicker.alpha = 0.f;
+        _fromLabel.alpha = 0.f;
+        _toLabel.alpha = 0.f;
+        self.equalsArrow.alpha = 1.f;
+        _fromCurrencyLabel.alpha = 1.f;
+        _toCurrencyLabel.alpha = 1.f;
+    } completion:^(BOOL finished) {
+        _valuePicker.hidden = YES;
     }];
 }
 
 - (IBAction)buyOrSellTapped:(id)sender {
     
     if(self.buyOrSell.selectedSegmentIndex == 0){
-        self.buyVariant = YES;
+        self.buyVariant = NO;
         [self textFieldDidChange:_resultTextField];
     }
     else {
-        self.buyVariant = NO;
+        self.buyVariant = YES;
         [self textFieldDidChange:_resultTextField];
     }
 }
 
 - (IBAction)backButtonAction:(id)sender {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [_summToConvert resignFirstResponder];
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -159,8 +200,21 @@
     if(searchRange.location != NSNotFound) {
         return YES;
     }
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Invalid Input" message:@"Only numbers are allowed for participant number." delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
-    [av show];
+    
+    UIAlertController *alert = [UIAlertController
+                                  alertControllerWithTitle:@"Invalid Input"
+                                  message:@"Only numbers are allowed."
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction
+                         actionWithTitle:@"Continue"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                            
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
     return NO;
 }
 
@@ -203,25 +257,19 @@
                                                                                       action:@selector(swipeSegue)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
-    UITapGestureRecognizer *singleFingerTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(handleSingleTap:)];
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(handleSingleTap:)];
     [self.view addGestureRecognizer:singleFingerTap];
+    UITapGestureRecognizer *swipeValues = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(swapValues)];
+    swipeValues.numberOfTapsRequired = 1;
+    [self.equalsArrow setUserInteractionEnabled:YES];
+    [self.equalsArrow addGestureRecognizer:swipeValues];
 }
 
 -(void)swipeSegue{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer{
-    [self doneWithNumberPad];
-    [UIView animateWithDuration:0.4 animations:^{
-        self.valuePicker.alpha = 0.f;
-        _fromLabel.alpha = 0.f;
-        _toLabel.alpha = 0.f;
-    } completion:^(BOOL finished) {
-        _valuePicker.hidden = YES;
-    }];
+    
+    [_summToConvert resignFirstResponder];
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 #pragma mark - Pashalki
@@ -229,15 +277,6 @@
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gesture {
     if(UIGestureRecognizerStateBegan == gesture.state) {
         _backGroundImage.image = [UIImage imageNamed:@"trump"];
-
-    }
-    
-    if(UIGestureRecognizerStateChanged == gesture.state) {
-        // Do repeated work here (repeats continuously) while finger is down
-    }
-    
-    if(UIGestureRecognizerStateEnded == gesture.state) {
-        
     }
 }
 

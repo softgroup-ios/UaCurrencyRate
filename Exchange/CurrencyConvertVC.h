@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RZTransitions.h"
 #import "СurrencyModel.h"
 #import "MainVC.h"
 
 
-@interface CurrencyConvertVC : UIViewController
+@interface CurrencyConvertVC : UIViewController <RZTransitionInteractionControllerDelegate>
 
 @property(strong,nonatomic) CurrencyModel *eurModel;
 @property(strong,nonatomic) CurrencyModel *rubModel;
@@ -28,13 +29,17 @@
 - (IBAction)buyOrSellTapped:(id)sender;
 - (IBAction)backButtonAction:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *toCurrencyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fromCurrencyLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UIButton *showPickerBtn;
 
--  (void)handleLongPress:(UILongPressGestureRecognizer*)sender;
+- (void)handleLongPress:(UILongPressGestureRecognizer*)sender;
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *longPress;
 
+@property (weak, nonatomic) IBOutlet UIImageView *equalsArrow;
 
 @end

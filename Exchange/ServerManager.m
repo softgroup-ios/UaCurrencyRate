@@ -13,7 +13,7 @@
 @implementation ServerManager
 
 
-+ (void) downloadCurrentModelsWithsuccessBlock: (SuccessDownloadCurrency) successBlock{
++ (void) downloadCurrentModelsWithSuccessBlock: (SuccessDownloadCurrency) successBlock{
     
     NSURL *url = [NSURL URLWithString:@"https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
@@ -44,7 +44,7 @@
 }
 
 + (void) downloadYesterdayModelsWithData:(NSString*)date
-                     andWithsuccessBlock:(SuccessDownloadCurrency) successBlock{
+                     andWithSuccessBlock:(SuccessDownloadCurrency) successBlock{
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.privatbank.ua/p24api/exchange_rates?json&date=%@",date]];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url];
@@ -61,8 +61,7 @@
         NSMutableArray *unsortedModelsArray = [NSMutableArray new];
         NSDictionary *allElements = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         NSArray *exchangeRate = [allElements objectForKey:@"exchangeRate"];
-        for(NSDictionary *jsonModel in exchangeRate){
-            
+        for(NSDictionary *jsonModel in exchangeRate){            
             CurrencyModel *model = [CurrencyModel new];
             model.exchangeToCurrency = [jsonModel objectForKey:@"currency"];
             model.buyRate = [[jsonModel objectForKey:@"purchaseRateNB"] floatValue];

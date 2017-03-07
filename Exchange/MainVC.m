@@ -6,15 +6,15 @@
 //  Copyright © 2017 Max Ostapchuk. All rights reserved.
 //
 
-#import "MainVc.h"
+#import "MainVC.h"
 #import "constants.h"
 #import "ServerManager.h"
 #import "СurrencyModel.h"
 #import "CurrencyConvertVC.h"
-#import "SwatchTransition.h"
+#import "RZTransitions.h"
 
 
-@interface MainVC () <UINavigationControllerDelegate>
+@interface MainVC () <UINavigationControllerDelegate,RZTransitionInteractionControllerDelegate>
 
 @property(strong,nonatomic) NSMutableArray *modelsArray;
 @property(strong,nonatomic) NSArray *yesterdayModelsArray;
@@ -29,6 +29,10 @@
 @property(strong,nonatomic) CurrencyModel *yesterdayUsdModel;
 @property(assign,nonatomic) NSInteger *pepeCryConuter;
 
+@property(strong,nonnull) CurrencyConvertVC *convertVC;
+@property (nonatomic, strong) id<RZTransitionInteractionController> pushPopInteractionController;
+@property (nonatomic, strong) id<RZTransitionInteractionController> presentInteractionController;
+
 @end
 
 @implementation MainVC
@@ -36,11 +40,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController setDelegate:[RZTransitionsManager shared]];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.modelsArray = [NSMutableArray new];
     [self createModelsAndUpdateLabels];
     [self addTapAndSwipeRecognizer];
     [self addLongPress];
+    [self configureInteractionTransition];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -91,7 +97,7 @@
         [self checkInternetConnection];
         [self updateLabels];
         [self createYesterdayModels];
-        
+        [self passYesterdayModels];
     }];
 }
 
@@ -99,7 +105,6 @@
 -(void)createYesterdayModels{
        
     [CurrencyModel getYesterdayCurrencyModels:^(NSMutableArray *array) {
-        
         self.yesterdayModelsArray = array;
         for(CurrencyModel *model in self.yesterdayModelsArray){
             if([model.exchangeToCurrency  isEqual: @"EUR"]){
@@ -115,13 +120,12 @@
 }
 
 
-
 #pragma mark - Update time / Stop indicators
 
 -(void)lastUpdateDate{
     
     NSDate* now = [NSDate date];
-    self.lastUpdateLabel.text = [NSString stringWithFormat:@"Last rate update - %@",[self convertDateToString:now]];
+    self.lastUpdateLabel.text = [NSString stringWithFormat:@"Rate update time- %@",[self convertDateToString:now]];
 }
 
 -(void)stopIndicators{
@@ -145,7 +149,7 @@
 
 - (IBAction)moneyConvertButton:(id)sender {
     
-    [self performSegueWithIdentifier:@"convertSegue" sender:nil];
+    [[self navigationController] pushViewController:[self segue] animated:YES];
 }
 
 #pragma mark - Currency Compracion
@@ -186,10 +190,6 @@
     usdTap.numberOfTapsRequired = 1;
     [_rubComprasionImageView setUserInteractionEnabled:YES];
     [_rubComprasionImageView addGestureRecognizer:rubTap];
-    
-    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeSegue)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [self.view addGestureRecognizer:recognizer];
 }
 
 
@@ -230,7 +230,7 @@
     [UIView animateWithDuration:1.0f animations:^{
         [view setAlpha:0.85f];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1.1 animations:^{
+        [UIView animateWithDuration:1.5 animations:^{
             [view setAlpha:0.0f];
         }];
     }];
@@ -259,20 +259,10 @@
 
 #pragma mark - Navigation
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-      
-    if ([segue.identifier isEqualToString:@"convertSegue"]) {
-        CurrencyConvertVC *convertVC = segue.destinationViewController;
-        self.navigationController.delegate = self;
-        convertVC.eurModel = self.eurModel;
-        convertVC.rubModel = self.rubModel;
-        convertVC.usdModel = self.usdModel;
-    }    
-}
-
-
--(void)swipeSegue{
-    [self performSegueWithIdentifier:@"convertSegue" sender:nil];
+-(CurrencyConvertVC*)segue{
+    
+    [_convertVC setTransitioningDelegate:[RZTransitionsManager shared]];
+    return _convertVC;
 }
 
 #pragma mark - Pashalki
@@ -280,14 +270,6 @@
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gesture {
     if(UIGestureRecognizerStateBegan == gesture.state) {
         _backGroundImage.image = [UIImage imageNamed:@"pepetrump"];
-    }
-    
-    if(UIGestureRecognizerStateChanged == gesture.state) {
-        // Do repeated work here (repeats continuously) while finger is down
-    }
-    
-    if(UIGestureRecognizerStateEnded == gesture.state) {
-        
     }
 }
 
@@ -299,18 +281,40 @@
     [self.view addGestureRecognizer:_topLongPress];
 }
 
-//#pragma mark - Animated Transiton
-//
-//-(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
-//{
-//    if (operation == UINavigationControllerOperationPush) {
-//        SwatchTransition * animator = [SwatchTransition new];
-//        animator.mode = SwatchTransitionModePresent;
-//        return  animator;
-//    }
-//    return nil;
-//}
+#pragma mark - RZTransitionInteractorDelegate
 
+- (UIViewController *)nextViewControllerForInteractor:(id<RZTransitionInteractionController>)interactor
+{
+    [_convertVC setTransitioningDelegate:[RZTransitionsManager shared]];
+    return _convertVC;
+}
 
+-(void)configureInteractionTransition{
+    
+    // Create the push and pop interaction controller that allows a custom gesture
+    // to control pushing and popping from the navigation controller
+    self.pushPopInteractionController = [[RZHorizontalInteractionController alloc] init];
+    [self.pushPopInteractionController setNextViewControllerDelegate:self];
+    [self.pushPopInteractionController attachViewController:self withAction:RZTransitionAction_PushPop];
+    [[RZTransitionsManager shared] setInteractionController:self.pushPopInteractionController
+                                         fromViewController:[self class]
+                                           toViewController:nil
+                                                  forAction:RZTransitionAction_PushPop];
+    
+    // Setup the push & pop animations as well as a special animation for pushing a
+    // RZSimpleCollectionViewController
+    [[RZTransitionsManager shared] setAnimationController:[[RZCardSlideAnimationController alloc] init]
+                                       fromViewController:[self class]
+                                                forAction:RZTransitionAction_PushPop];
+}
+
+-(void)passYesterdayModels{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    _convertVC = (CurrencyConvertVC *)[sb instantiateViewControllerWithIdentifier:@"CurrencyVC"];
+    
+    _convertVC.eurModel = self.eurModel;
+    _convertVC.rubModel = self.rubModel;
+    _convertVC.usdModel = self.usdModel;
+}
 
 @end

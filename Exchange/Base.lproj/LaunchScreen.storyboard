@@ -21,6 +21,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shape" translatesAutoresizingMaskIntoConstraints="NO" id="Ngf-SS-x0p">
+                                <rect key="frame" x="-154" y="0.0" width="720" height="736"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CURRENCY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0J2-9T-nWZ">
                                 <rect key="frame" x="131.66666666666669" y="443" width="150.00000000000006" height="42"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="30"/>
@@ -43,23 +46,28 @@
                         </subviews>
                         <color key="backgroundColor" red="0.18200889229774475" green="0.20988819003105164" blue="0.25958013534545898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Ngf-SS-x0p" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="011-jD-faa"/>
                             <constraint firstItem="cbC-Ll-IAP" firstAttribute="top" secondItem="0J2-9T-nWZ" secondAttribute="bottom" constant="-15" id="59v-t0-ktZ"/>
                             <constraint firstItem="0J2-9T-nWZ" firstAttribute="top" secondItem="Xv6-wP-EDW" secondAttribute="bottom" id="Btc-HH-jH2"/>
+                            <constraint firstItem="Ngf-SS-x0p" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-154" id="E4d-pO-dEV"/>
                             <constraint firstItem="cbC-Ll-IAP" firstAttribute="centerX" secondItem="Xv6-wP-EDW" secondAttribute="centerX" id="KFO-nn-liB"/>
                             <constraint firstItem="Xv6-wP-EDW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Nvj-hY-L5Y"/>
                             <constraint firstItem="Xv6-wP-EDW" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="UkW-0j-BPh"/>
                             <constraint firstItem="0J2-9T-nWZ" firstAttribute="width" secondItem="Xv6-wP-EDW" secondAttribute="width" id="bgH-Bg-Ky5"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Ngf-SS-x0p" secondAttribute="bottom" id="eNB-ph-VeY"/>
                             <constraint firstItem="cbC-Ll-IAP" firstAttribute="width" secondItem="0J2-9T-nWZ" secondAttribute="width" id="l2F-dk-D0B"/>
+                            <constraint firstAttribute="trailing" secondItem="Ngf-SS-x0p" secondAttribute="trailing" constant="-152" id="qKH-lF-eN4"/>
                             <constraint firstItem="0J2-9T-nWZ" firstAttribute="centerX" secondItem="Xv6-wP-EDW" secondAttribute="centerX" id="uka-nY-lFC"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="50.724637681159422" y="374.18478260869568"/>
         </scene>
     </scenes>
     <resources>
         <image name="gold_earth" width="512" height="512"/>
+        <image name="shape" width="1316" height="1252"/>
     </resources>
 </document>

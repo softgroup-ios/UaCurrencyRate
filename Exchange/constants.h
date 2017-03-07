@@ -25,5 +25,4 @@
 
 #define CURRENCY_CHANGE_VIEW UIColorFromRGB(0x7C8BA1)
 
-
 #endif /* constants_h */

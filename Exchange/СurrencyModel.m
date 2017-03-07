@@ -13,7 +13,7 @@
 
 +(void)getCurrencyModels:(modelsBlock)completionBlock{
     
-    [ServerManager downloadCurrentModelsWithsuccessBlock:^(NSMutableArray *models) {
+    [ServerManager downloadCurrentModelsWithSuccessBlock:^(NSMutableArray *models) {
         if(models){
             completionBlock(models);
         }else{
@@ -30,7 +30,7 @@
     [dateFormat setDateFormat:@"dd.MM.yyyy"];
     NSString *dateString = [dateFormat stringFromDate:yesterday];
     
-    [ServerManager downloadYesterdayModelsWithData:dateString andWithsuccessBlock:^(NSMutableArray *models) {
+    [ServerManager downloadYesterdayModelsWithData:dateString andWithSuccessBlock:^(NSMutableArray *models) {
         if(models){
             NSMutableArray *resultArray = [self getNeededModels:models];
             completionBlock(resultArray);

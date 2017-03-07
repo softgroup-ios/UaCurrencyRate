@@ -10,7 +10,6 @@
 		0113341DE58ABE33BA88126D /* libPods-Exchange.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D389B3CE6C7563BAF4D55C5 /* libPods-Exchange.a */; };
 		0286000993E73DAA5BEA93AB /* libPods-ExchangeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D72B3AB1D93154F483D432 /* libPods-ExchangeTests.a */; };
 		44EFE56473820D8767D6006C /* libPods-ExchangeUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0EBB578C5DBFE784401403 /* libPods-ExchangeUITests.a */; };
-		9F07F72D1E6847150029273B /* SwatchTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F07F72C1E6847150029273B /* SwatchTransition.m */; };
 		9F655F9D1E5D8D1000722398 /* CurrencyConvertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F655F9C1E5D8D1000722398 /* CurrencyConvertVC.m */; };
 		9FCBCFEF1E5C9AA50086ED80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBCFEE1E5C9AA50086ED80 /* main.m */; };
 		9FCBCFF21E5C9AA50086ED80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBCFF11E5C9AA50086ED80 /* AppDelegate.m */; };
@@ -48,8 +47,6 @@
 		3CF950049846194DCCA41CDE /* Pods-ExchangeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExchangeUITests/Pods-ExchangeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5D389B3CE6C7563BAF4D55C5 /* libPods-Exchange.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Exchange.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D72B3AB1D93154F483D432 /* libPods-ExchangeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExchangeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F07F72B1E6847150029273B /* SwatchTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchTransition.h; sourceTree = "<group>"; };
-		9F07F72C1E6847150029273B /* SwatchTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchTransition.m; sourceTree = "<group>"; };
 		9F190D311E670F1C0056E058 /* CurrencyKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CurrencyKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F655F9A1E5D7EB800722398 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		9F655F9B1E5D8D1000722398 /* CurrencyConvertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyConvertVC.h; sourceTree = "<group>"; };
@@ -170,12 +167,10 @@
 				9FCBD0201E5CA1950086ED80 /* Models */,
 				9F655F991E5D780A00722398 /* Views */,
 				9FCBCFF61E5C9AA50086ED80 /* Main.storyboard */,
-				9FCBCFF91E5C9AA50086ED80 /* Assets.xcassets */,
 				9FCBCFFB1E5C9AA50086ED80 /* LaunchScreen.storyboard */,
+				9FCBCFF91E5C9AA50086ED80 /* Assets.xcassets */,
 				9FCBCFFE1E5C9AA50086ED80 /* Info.plist */,
 				9FCBCFED1E5C9AA50086ED80 /* Supporting Files */,
-				9F07F72B1E6847150029273B /* SwatchTransition.h */,
-				9F07F72C1E6847150029273B /* SwatchTransition.m */,
 			);
 			path = Exchange;
 			sourceTree = "<group>";
@@ -547,7 +542,6 @@
 			files = (
 				9FCBD0231E5CA1D60086ED80 /* ServerManager.m in Sources */,
 				9F655F9D1E5D8D1000722398 /* CurrencyConvertVC.m in Sources */,
-				9F07F72D1E6847150029273B /* SwatchTransition.m in Sources */,
 				9FCBD0261E5CA47F0086ED80 /* СurrencyModel.m in Sources */,
 				9FCBCFF51E5C9AA50086ED80 /* MainVC.m in Sources */,
 				9FCBCFF21E5C9AA50086ED80 /* AppDelegate.m in Sources */,

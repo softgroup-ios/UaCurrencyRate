@@ -14,7 +14,7 @@
 
 typedef void (^SuccessDownloadCurrency)(NSMutableArray *models);
 
-+ (void) downloadCurrentModelsWithsuccessBlock: (SuccessDownloadCurrency) successBlock;
-+ (void) downloadYesterdayModelsWithData:(NSString*)date  andWithsuccessBlock: (SuccessDownloadCurrency) successBlock;
++ (void) downloadCurrentModelsWithSuccessBlock: (SuccessDownloadCurrency) successBlock;
++ (void) downloadYesterdayModelsWithData:(NSString*)date  andWithSuccessBlock: (SuccessDownloadCurrency) successBlock;
 
 @end

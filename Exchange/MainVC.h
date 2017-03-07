@@ -17,19 +17,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *eurBuy;
 @property (weak, nonatomic) IBOutlet UILabel *eurSell;
 
-- (IBAction)refreshButtonAction:(id)sender;
-- (IBAction)moneyConvertButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *eurCompraisonImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *rubComprasionImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *usdComprasionImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 
-@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
+- (IBAction)refreshButtonAction:(id)sender;
+- (IBAction)moneyConvertButton:(id)sender;
 
 @property (strong, nonatomic) IBOutletCollection(UIActivityIndicatorView) NSArray *rateActivityIndicators;
-
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *topLongPress;
 
 @end
