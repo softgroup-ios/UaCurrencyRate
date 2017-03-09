@@ -197,12 +197,18 @@
     if (string.length == 0) {
         return YES;
     }
-    NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
-    NSRange searchRange =  [string rangeOfCharacterFromSet:myCharSet];
-    if(searchRange.location != NSNotFound) {
-        return YES;
+    NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789,"];
+    for (int i = 0; i < [string length]; i++) {
+        unichar c = [string characterAtIndex:i];
+        if ([myCharSet characterIsMember:c]) {
+            
+            NSString *newString = [_summToConvert.text stringByReplacingCharactersInRange:range withString:string];
+            NSArray *sep = [newString componentsSeparatedByString:@","];
+            if([sep count]>2) return NO;
+            return YES;
+            
+        }
     }
-    
     UIAlertController *alert = [UIAlertController
                                   alertControllerWithTitle:@"Invalid Input"
                                   message:@"Only numbers are allowed."
