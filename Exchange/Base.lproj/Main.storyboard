@@ -170,7 +170,7 @@
                                 <rect key="frame" x="303" y="421.5" width="42" height="25"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Internet connection appears to be offline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9CO-dG-gyE">
-                                <rect key="frame" x="49" y="488.5" width="276" height="52.5"/>
+                                <rect key="frame" x="49" y="488.5" width="276" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9CO-dG-gyE" secondAttribute="height" multiplier="276:53" id="CaV-qy-zzH"/>
                                 </constraints>
@@ -346,7 +346,7 @@
                                 </constraints>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Oa-eq-TsG">
-                                <rect key="frame" x="223" y="304.5" width="125" height="30.5"/>
+                                <rect key="frame" x="223" y="305" width="125" height="29.5"/>
                                 <color key="backgroundColor" red="0.18200889229774475" green="0.20988819003105164" blue="0.25958013534545898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <segments>
                                     <segment title="Sell"/>
@@ -422,13 +422,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eArrow" translatesAutoresizingMaskIntoConstraints="NO" id="qOY-ev-r8h">
-                                <rect key="frame" x="155" y="338" width="65" height="60"/>
+                                <rect key="frame" x="155" y="337.5" width="65" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="CzO-pi-r00"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="e1K-yf-XGa">
-                                <rect key="frame" x="223" y="348" width="55" height="40"/>
+                                <rect key="frame" x="223" y="347.5" width="55" height="40"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="33"/>
                                 <color key="textColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -442,6 +442,12 @@
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Internet connection appears to be offline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tp8-jN-fNe">
+                                <rect key="frame" x="28" y="408.5" width="320" height="48"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.67450980390000004" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.18039215689999999" green="0.21176470589999999" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -450,6 +456,7 @@
                             <constraint firstItem="4bp-4j-KU3" firstAttribute="width" secondItem="GeZ-aK-V8c" secondAttribute="height" multiplier="125:667" id="2EM-Ob-WRL"/>
                             <constraint firstItem="1Yy-OB-nRe" firstAttribute="leading" secondItem="GeZ-aK-V8c" secondAttribute="leading" id="3jg-H1-uPA"/>
                             <constraint firstItem="EMG-bj-JeR" firstAttribute="height" secondItem="HYd-wA-7MM" secondAttribute="height" id="4Q4-br-Tgw"/>
+                            <constraint firstItem="Tp8-jN-fNe" firstAttribute="leading" secondItem="jd1-Oz-wAf" secondAttribute="leading" id="4kp-R3-Y0k"/>
                             <constraint firstItem="EMG-bj-JeR" firstAttribute="width" secondItem="HYd-wA-7MM" secondAttribute="width" id="7Th-CV-t8A"/>
                             <constraint firstItem="cQi-Xh-8yd" firstAttribute="leading" secondItem="GeZ-aK-V8c" secondAttribute="leading" id="8As-Ig-6yB"/>
                             <constraint firstAttribute="trailing" secondItem="1Yy-OB-nRe" secondAttribute="trailing" id="8gU-QV-6sm"/>
@@ -459,10 +466,13 @@
                             <constraint firstItem="1Yy-OB-nRe" firstAttribute="top" secondItem="cQi-Xh-8yd" secondAttribute="bottom" constant="197" id="Aey-NW-PGt"/>
                             <constraint firstItem="jd1-Oz-wAf" firstAttribute="width" secondItem="4bp-4j-KU3" secondAttribute="width" id="CY0-rX-wd8"/>
                             <constraint firstAttribute="trailing" secondItem="cQi-Xh-8yd" secondAttribute="trailing" id="FIt-a2-TBL"/>
+                            <constraint firstItem="Tp8-jN-fNe" firstAttribute="width" secondItem="GeZ-aK-V8c" secondAttribute="height" multiplier="320:667" id="Fi7-09-CwC"/>
                             <constraint firstItem="4bp-4j-KU3" firstAttribute="top" secondItem="HYd-wA-7MM" secondAttribute="bottom" constant="-3.5" id="JUb-dO-W1Q"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bGD-ix-27R" secondAttribute="trailing" priority="999" constant="12" id="K1p-7G-Bya"/>
                             <constraint firstItem="wpr-aD-dfz" firstAttribute="leading" secondItem="e1K-yf-XGa" secondAttribute="leading" id="KMA-w7-O2b"/>
                             <constraint firstItem="jd1-Oz-wAf" firstAttribute="top" secondItem="4bp-4j-KU3" secondAttribute="bottom" constant="48.5" id="N3X-6V-TNe"/>
+                            <constraint firstItem="Tp8-jN-fNe" firstAttribute="top" secondItem="qOY-ev-r8h" secondAttribute="bottom" constant="11" id="O4s-Fk-vp6"/>
+                            <constraint firstItem="Tp8-jN-fNe" firstAttribute="trailing" secondItem="1Oa-eq-TsG" secondAttribute="trailing" id="PGN-dA-Tyr"/>
                             <constraint firstItem="HYd-wA-7MM" firstAttribute="leading" secondItem="GeZ-aK-V8c" secondAttribute="leadingMargin" priority="999" constant="12" id="Rzs-SS-xe4"/>
                             <constraint firstItem="awO-sU-MPK" firstAttribute="top" secondItem="jd1-Oz-wAf" secondAttribute="bottom" constant="14" id="S7y-16-zI4"/>
                             <constraint firstItem="awO-sU-MPK" firstAttribute="width" secondItem="e1K-yf-XGa" secondAttribute="width" id="ThF-x2-v4E"/>
@@ -516,6 +526,7 @@
                         <outlet property="fromCurrencyLabel" destination="awO-sU-MPK" id="UVI-f7-fxs"/>
                         <outlet property="fromLabel" destination="JS5-53-Rui" id="piH-Ee-5gM"/>
                         <outlet property="longPress" destination="36z-2J-Lu0" id="eTJ-S3-3B8"/>
+                        <outlet property="networkErrorLabel" destination="Tp8-jN-fNe" id="3F0-Cc-edp"/>
                         <outlet property="resultTextField" destination="jd1-Oz-wAf" id="1Lu-ak-9Id"/>
                         <outlet property="showPickerBtn" destination="bGD-ix-27R" id="Qi9-sN-iNK"/>
                         <outlet property="summToConvert" destination="4bp-4j-KU3" id="NUi-GZ-5e4"/>
@@ -527,7 +538,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOB-Jv-Zs9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="4" id="36z-2J-Lu0"/>
             </objects>
-            <point key="canvasLocation" x="931.875" y="32.74647887323944"/>
+            <point key="canvasLocation" x="930.39999999999998" y="31.934032983508249"/>
         </scene>
     </scenes>
     <resources>

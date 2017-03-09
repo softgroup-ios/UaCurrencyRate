@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UIButton *showPickerBtn;
+@property (weak, nonatomic) IBOutlet UILabel *networkErrorLabel;
 
 - (void)handleLongPress:(UILongPressGestureRecognizer*)sender;
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *longPress;

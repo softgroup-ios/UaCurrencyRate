@@ -33,12 +33,14 @@
     self.uahModel.buyRate = 1.0f;
     self.uahModel.sellRate = 1.0f;
     self.pickerData = @[@"USD",@"EUR",@"UAH",@"RUB"];
+    
     self.valuePicker.dataSource = self;
     self.valuePicker.delegate = self;
     self.summToConvert.delegate = self;
     
     _showPickerBtn.layer.cornerRadius = 4;
     _showPickerBtn.clipsToBounds = YES;
+    
     self.buyVariant = YES;
     [self addGestureRecognizers];
     [self customKeyBoard];
@@ -47,6 +49,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self checkNetwork];
     self.backGroundImage.image = [UIImage imageNamed:@"internet"];
     self.summToConvert.text = @"";
     self.resultTextField.text = @"";
@@ -78,12 +81,12 @@
         case 0:
             self.fromCurrencyLabel.text = self.pickerData[row];
             self.selectedPickerFirstComponent = row;
-            [self textFieldDidChange:_resultTextField];
+            [self createResultOfConvert:_resultTextField];
             break;
         case 1:
             self.toCurrencyLabel.text = self.pickerData[row];
             self.selectedPickerSecondComponent = row;
-            [self textFieldDidChange:_resultTextField];
+            [self createResultOfConvert:_resultTextField];
         default:
             break;
     }
@@ -120,7 +123,7 @@
     NSString *tmpStr = self.fromCurrencyLabel.text;
     self.fromCurrencyLabel.text = self.toCurrencyLabel.text;
     self.toCurrencyLabel.text = tmpStr;
-    [self textFieldDidChange:_resultTextField];
+    [self createResultOfConvert:_resultTextField];
 }
 
 #pragma mark - Calculate result of converting
@@ -176,11 +179,11 @@
     
     if(self.buyOrSell.selectedSegmentIndex == 0){
         self.buyVariant = NO;
-        [self textFieldDidChange:_resultTextField];
+        [self createResultOfConvert:_resultTextField];
     }
     else {
         self.buyVariant = YES;
-        [self textFieldDidChange:_resultTextField];
+        [self createResultOfConvert:_resultTextField];
     }
 }
 
@@ -228,6 +231,10 @@
 
 -(void)textFieldDidChange :(UITextField *)theTextField{
     
+    [self createResultOfConvert:theTextField];
+}
+
+-(void)createResultOfConvert:(UITextField*)theTextField{
     float result;
     CurrencyModel *firstPickerModel = [self getPickerValue:_selectedPickerFirstComponent];
     CurrencyModel *secondPickerModel = [self getPickerValue:_selectedPickerSecondComponent];
@@ -294,6 +301,21 @@
                   action:@selector(handleLongPress:)];
     _longPress.minimumPressDuration = 2.0;
     [self.view addGestureRecognizer:_longPress];
+}
+
+#pragma mark - Check internet connection
+
+-(void)checkNetwork{
+    if(_usdModel.buyRate == 0.f){
+        _networkErrorLabel.hidden = NO;
+        _showPickerBtn.enabled = NO;
+        _buyOrSell.enabled = NO;
+    }
+    else{
+        _buyOrSell.enabled = YES;
+        _showPickerBtn.enabled = YES;
+        _networkErrorLabel.hidden = YES;
+    }
 }
 
 @end
