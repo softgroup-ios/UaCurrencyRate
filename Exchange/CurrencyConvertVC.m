@@ -112,9 +112,11 @@
 
 -(void)swapValues{
     
-    NSInteger tmp = self.selectedPickerFirstComponent;
-    [self.valuePicker selectRow:self.selectedPickerSecondComponent inComponent:0 animated:NO];
-    [self.valuePicker selectRow:tmp inComponent:1 animated:NO];
+    NSInteger tmpValue = self.selectedPickerFirstComponent;
+    self.selectedPickerFirstComponent = self.selectedPickerSecondComponent;
+    self.selectedPickerSecondComponent = tmpValue;
+    [self.valuePicker selectRow:self.selectedPickerFirstComponent inComponent:0 animated:YES];
+    [self.valuePicker selectRow:tmpValue inComponent:1 animated:YES];
     NSString *tmpStr = self.fromCurrencyLabel.text;
     self.fromCurrencyLabel.text = self.toCurrencyLabel.text;
     self.toCurrencyLabel.text = tmpStr;
