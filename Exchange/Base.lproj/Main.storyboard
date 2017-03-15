@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uTe-rg-tO9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uTe-rg-tO9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -70,7 +70,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EUR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="WX7-dk-r8L">
-                                <rect key="frame" x="30" y="251.5" width="52" height="26"/>
+                                <rect key="frame" x="30" y="252" width="52" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WX7-dk-r8L" secondAttribute="height" multiplier="2:1" id="aJD-jy-8nY"/>
                                 </constraints>
@@ -79,7 +79,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="7PJ-WZ-u7W">
-                                <rect key="frame" x="30" y="336.5" width="52" height="26"/>
+                                <rect key="frame" x="30" y="337" width="52" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7PJ-WZ-u7W" secondAttribute="height" multiplier="2:1" id="1sN-pe-F4W"/>
                                 </constraints>
@@ -88,7 +88,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0nF-9h-ELr">
-                                <rect key="frame" x="30" y="421.5" width="52" height="26"/>
+                                <rect key="frame" x="30" y="422" width="52" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0nF-9h-ELr" secondAttribute="height" multiplier="2:1" id="dYU-bR-EiC"/>
                                 </constraints>
@@ -97,7 +97,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="ZyB-gG-1Vb">
-                                <rect key="frame" x="126" y="182.5" width="36" height="20"/>
+                                <rect key="frame" x="126" y="183" width="36" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="ZZA-Tl-eGp"/>
                                     <constraint firstAttribute="width" secondItem="ZyB-gG-1Vb" secondAttribute="height" multiplier="9:5" id="fq7-pn-H3C"/>
@@ -107,7 +107,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="wi2-Tw-CTt">
-                                <rect key="frame" x="235" y="182.5" width="41" height="20"/>
+                                <rect key="frame" x="235" y="183" width="41" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wi2-Tw-CTt" secondAttribute="height" multiplier="41:20" id="Tci-tE-eLE"/>
                                     <constraint firstAttribute="height" constant="20" id="daD-ze-wlp"/>
@@ -117,60 +117,60 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pPx-qr-juN">
-                                <rect key="frame" x="144" y="252.5" width="0.0" height="23"/>
+                                <rect key="frame" x="144" y="253" width="0.0" height="23"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="21"/>
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="SYh-VZ-VBl">
-                                <rect key="frame" x="256" y="252.5" width="0.0" height="23"/>
+                                <rect key="frame" x="256" y="253" width="0.0" height="23"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="21"/>
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="K0q-Le-B6I">
-                                <rect key="frame" x="144" y="337.5" width="0.0" height="23"/>
+                                <rect key="frame" x="144" y="338" width="0.0" height="23"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="21"/>
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="U1k-HL-q8d">
-                                <rect key="frame" x="256" y="337.5" width="0.0" height="23"/>
+                                <rect key="frame" x="256" y="338" width="0.0" height="23"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="21"/>
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="fN7-ef-1Zh">
-                                <rect key="frame" x="144" y="422.5" width="0.0" height="23"/>
+                                <rect key="frame" x="144" y="423" width="0.0" height="23"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="21"/>
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="aQa-0K-Tnp">
-                                <rect key="frame" x="256" y="422.5" width="0.0" height="23"/>
+                                <rect key="frame" x="256" y="423" width="0.0" height="23"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="21"/>
                                 <color key="textColor" red="0.76470588235294112" green="0.93333333333333335" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dDv-q2-aj0">
-                                <rect key="frame" x="303" y="251.5" width="42" height="25"/>
+                                <rect key="frame" x="303" y="252" width="42" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Deq-SQ-roT"/>
                                     <constraint firstAttribute="width" constant="42" id="scI-rd-DJb"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oKw-zx-9nM">
-                                <rect key="frame" x="303" y="336.5" width="42" height="25"/>
+                                <rect key="frame" x="303" y="337" width="42" height="25"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rf1-HZ-NAv">
-                                <rect key="frame" x="0.0" y="64" width="375" height="95.5"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="96"/>
                                 <gestureRecognizers/>
                             </view>
                             <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2T0-2j-Zyd">
-                                <rect key="frame" x="303" y="421.5" width="42" height="25"/>
+                                <rect key="frame" x="303" y="422" width="42" height="25"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Internet connection appears to be offline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9CO-dG-gyE">
-                                <rect key="frame" x="49" y="488.5" width="276" height="53"/>
+                                <rect key="frame" x="49" y="489" width="276" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9CO-dG-gyE" secondAttribute="height" multiplier="276:53" id="CaV-qy-zzH"/>
                                 </constraints>
@@ -179,22 +179,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="aTe-9z-afT">
-                                <rect key="frame" x="134" y="253.5" width="20" height="20"/>
+                                <rect key="frame" x="134" y="254" width="20" height="20"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="8zg-46-fad">
-                                <rect key="frame" x="246" y="253.5" width="20" height="20"/>
+                                <rect key="frame" x="246" y="254" width="20" height="20"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ce5-Bc-G4B">
-                                <rect key="frame" x="134" y="339.5" width="20" height="20"/>
+                                <rect key="frame" x="134" y="340" width="20" height="20"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2OM-rt-85p">
-                                <rect key="frame" x="246" y="339.5" width="20" height="20"/>
+                                <rect key="frame" x="246" y="340" width="20" height="20"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="BtQ-wv-MaG">
-                                <rect key="frame" x="246" y="424.5" width="20" height="20"/>
+                                <rect key="frame" x="246" y="425" width="20" height="20"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="6SR-n7-4la">
-                                <rect key="frame" x="134" y="424.5" width="20" height="20"/>
+                                <rect key="frame" x="134" y="425" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -286,7 +286,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="UAH Rate" id="gDk-hn-RNp">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="9yV-Ko-xOY">
+                        <barButtonItem key="leftBarButtonItem" image="map_icon" id="9yV-Ko-xOY">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="refreshButtonAction:" destination="BYZ-38-t0r" id="Ley-FX-2OU"/>
@@ -346,7 +346,7 @@
                                 </constraints>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Oa-eq-TsG">
-                                <rect key="frame" x="223" y="305" width="125" height="29.5"/>
+                                <rect key="frame" x="223" y="304.5" width="125" height="30"/>
                                 <color key="backgroundColor" red="0.18200889229774475" green="0.20988819003105164" blue="0.25958013534545898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <segments>
                                     <segment title="Sell"/>
@@ -373,7 +373,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="jd1-Oz-wAf">
-                                <rect key="frame" x="28" y="305" width="125" height="28.5"/>
+                                <rect key="frame" x="28" y="305" width="125" height="28"/>
                                 <color key="backgroundColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" red="0.18200889229774475" green="0.20988819003105164" blue="0.25958013534545898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="19"/>
@@ -416,7 +416,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="awO-sU-MPK">
-                                <rect key="frame" x="98" y="347.5" width="55" height="40"/>
+                                <rect key="frame" x="98" y="347" width="55" height="40"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="33"/>
                                 <color key="textColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -544,5 +544,6 @@
     <resources>
         <image name="eArrow" width="128" height="128"/>
         <image name="internet" width="512" height="512"/>
+        <image name="map_icon" width="22" height="22"/>
     </resources>
 </document>
