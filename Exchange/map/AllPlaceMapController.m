@@ -55,7 +55,7 @@
     
     self.mapView.delegate = self;
     
-    [self initInfoWindowView];
+    //[self initInfoWindowView];
 }
 
 

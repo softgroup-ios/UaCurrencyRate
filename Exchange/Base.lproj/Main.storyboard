@@ -16,7 +16,7 @@
         <scene sceneID="Bpd-XK-Ltw">
             <objects>
                 <navigationController id="uTe-rg-tO9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iyr-cf-i6r">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iyr-cf-i6r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -289,7 +289,7 @@
                         <barButtonItem key="leftBarButtonItem" image="map_icon" id="9yV-Ko-xOY">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="refreshButtonAction:" destination="BYZ-38-t0r" id="Ley-FX-2OU"/>
+                                <action selector="openMapView:" destination="BYZ-38-t0r" id="UbA-zD-86c"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Convert" style="done" id="fjT-rZ-bYu">
@@ -539,6 +539,74 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="4" id="36z-2J-Lu0"/>
             </objects>
             <point key="canvasLocation" x="930.39999999999998" y="31.934032983508249"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="67f-YQ-bmK">
+            <objects>
+                <navigationController storyboardIdentifier="AllPlaceMapController" id="fRm-zS-itd" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="okf-4R-jKu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="lBc-LN-N3p" kind="relationship" relationship="rootViewController" id="Fe1-Kd-UwX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="krb-6i-NO3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-834" y="810"/>
+        </scene>
+        <!--All Place Map Controller-->
+        <scene sceneID="lT1-zz-VHY">
+            <objects>
+                <viewController id="lBc-LN-N3p" customClass="AllPlaceMapController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hPA-J8-1Jj"/>
+                        <viewControllerLayoutGuide type="bottom" id="G0b-iC-tqE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xxm-dW-Zva" customClass="GMSMapView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5u8-l2-VCs" customClass="GMSMapView">
+                                <rect key="frame" x="-73" y="877" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="VWq-mI-ENh">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="aEz-gx-WFr">
+                            <connections>
+                                <action selector="BackButton:" destination="lBc-LN-N3p" id="7v8-vt-qRD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="B7f-8V-1St">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="eK4-ZB-t0W">
+                                <rect key="frame" x="151" y="7" width="208" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="ATM"/>
+                                    <segment title="TSO"/>
+                                    <segment title="Office"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeTypePlaces:" destination="lBc-LN-N3p" eventType="valueChanged" id="auO-yi-DPg"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="xxm-dW-Zva" id="tXB-ht-apo"/>
+                        <outlet property="typePlaceSegmentController" destination="eK4-ZB-t0W" id="mvh-0V-6Nz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0xs-z4-yXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="25" y="810"/>
         </scene>
     </scenes>
     <resources>

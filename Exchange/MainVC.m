@@ -12,6 +12,7 @@
 #import "СurrencyModel.h"
 #import "CurrencyConvertVC.h"
 #import "RZTransitions.h"
+#import "AllPlaceMapController.h"
 
 
 @interface MainVC () <UINavigationControllerDelegate,RZTransitionInteractionControllerDelegate>
@@ -145,6 +146,14 @@
         _backGroundImage.image = [UIImage imageNamed:@"pepecry"];
         self.pepeCryConuter = 0;
     }
+}
+
+- (IBAction)openMapView:(id)sender {
+    
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AllPlaceMapController* controller = [storyboard instantiateViewControllerWithIdentifier:@"AllPlaceMapController"];
+    
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (IBAction)moneyConvertButton:(id)sender {

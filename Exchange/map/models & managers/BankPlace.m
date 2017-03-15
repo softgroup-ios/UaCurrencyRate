@@ -16,7 +16,7 @@
     static UIImageView* bankomatLogo;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bankomatIcon"]];
+        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"map_icon"]];
     });
     
     _coordinate = coordinate;
