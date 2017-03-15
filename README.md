@@ -1,5 +1,9 @@
 ## UaCurrencyRate
 
+[![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
+[![ObjectiveC](https://img.shields.io/badge/Objective--C-2.0-blue.svg)](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 
+
 IOS application with currency UAH rate and convertor, based on "Privat bank" API.
 
 ---
@@ -22,7 +26,7 @@ IOS application with currency UAH rate and convertor, based on "Privat bank" API
 
 ## DEMO
 <p align="center">
-<img src="https://media.giphy.com/media/3o7btXRqFm63nouo92/giphy.gif" height="500" />
+<img src="https://media.giphy.com/media/xUPGcAQSS8zYtwvgwo/giphy.gif" height="500" />
 </p>
 
 ## LICENSE
