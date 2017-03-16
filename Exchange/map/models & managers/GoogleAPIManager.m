@@ -11,21 +11,21 @@
 
 @interface GoogleAPIManager ()
 
-@property (nonatomic, strong) dispatch_queue_t apiQueue;
-@property (nonatomic, strong) AFHTTPSessionManager* httpManager;
-
+@property (nonatomic, strong) AFHTTPSessionManager *networkManager;
+@property (nonatomic, strong) NSString *language;
 @end
 
 
 @implementation GoogleAPIManager
 
-+(GoogleAPIManager*) sharedManager
-{
++(GoogleAPIManager*)sharedManager {
     static GoogleAPIManager* manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[GoogleAPIManager alloc]init];
-        manager.apiQueue = dispatch_queue_create("googleAPI", DISPATCH_QUEUE_SERIAL);
+        manager.networkManager = [[AFHTTPSessionManager alloc] init];
+        manager.networkManager.completionQueue = dispatch_queue_create("com.Exchange.GoogleAPIManager.completionQueue", DISPATCH_QUEUE_CONCURRENT);
+        manager.language = @"ru";
     });
     
     return  manager;
@@ -34,204 +34,152 @@
 #pragma mark - Methods For Get All GoogleAPI
 
 - (void)getReverseGeocoding:(CLLocationCoordinate2D)coord
-            completionHandler:(void (^)(NSDictionary *))completionHandler
-                   errorBlock: (ErrorBlock) errorBlock
-{
-    dispatch_async(self.apiQueue, ^{
-        [self fetchReverseGeocoding:coord completionHandler:completionHandler errorBlock:errorBlock];
-    });
+          completionHandler:(ComplateReversGeo)completionHandler
+                 errorBlock:(ErrorBlock)errorBlock {
+    
+    //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=
+    NSString *directionsAPI = @"https://maps.googleapis.com/maps/api/geocode/json?";
+    NSString *coordString = [NSString stringWithFormat:@"%f,%f", coord.latitude, coord.longitude];
+    
+    NSDictionary *parameters = @{@"latlng":coordString,
+                                 @"language":self.language};
+    [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject:nil;
+        if (dict) {
+            [self parsePlaceAddress:dict completionHandler:completionHandler errorBlock:errorBlock];
+        }
+        else {
+            errorBlock(nil);
+        }
+    }  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        errorBlock(error);
+    }];
 }
 
 - (void)getPolylineWithOrigin:(CLLocationCoordinate2D)origin
-                    destination:(CLLocationCoordinate2D)destination
-              completionHandler:(void (^)(GMSPath *))completionHandler
-                     errorBlock: (ErrorBlock) errorBlock
-{
-    dispatch_async(self.apiQueue, ^{
-        [self fetchPolylineWithOrigin:origin destination:destination completionHandler:completionHandler errorBlock:errorBlock];
-    });
-}
-
-- (void)getGeocoding:(NSString*) address
-     completionHandler:(void (^)(CLLocationCoordinate2D))completionHandler
-            errorBlock: (ErrorBlock) errorBlock
-{
-    dispatch_async(self.apiQueue, ^{
-        [self fetchGeocoding:address completionHandler:completionHandler errorBlock:errorBlock];
-    });
+                  destination:(CLLocationCoordinate2D)destination
+            completionHandler:(void (^)(GMSPath *))completionHandler
+                   errorBlock: (ErrorBlock) errorBlock {
     
-    dispatch_suspend(self.apiQueue);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        dispatch_resume(self.apiQueue);
-    });
-}
-
-#pragma mark - Fetch From GoogleAPI Methods
-
-- (void)fetchPolylineWithOrigin:(CLLocationCoordinate2D)origin
-                    destination:(CLLocationCoordinate2D)destination
-              completionHandler:(void (^)(GMSPath *))completionHandler
-                     errorBlock: (ErrorBlock) errorBlock
-{
+    NSString *directionsAPI = @"https://maps.googleapis.com/maps/api/directions/json?";
     NSString *originString = [NSString stringWithFormat:@"%f,%f", origin.latitude, origin.longitude];
     NSString *destinationString = [NSString stringWithFormat:@"%f,%f", destination.latitude, destination.longitude];
-    NSString *directionsAPI = @"https://maps.googleapis.com/maps/api/directions/json?";
-    NSString *directionsUrlString = [NSString stringWithFormat:@"%@&origin=%@&destination=%@&mode=driving&key=%@", directionsAPI, originString, destinationString, GoogleApi];
-    NSURL *directionsUrl = [NSURL URLWithString:directionsUrlString];
     
+    NSDictionary *parameters = @{@"origin":originString,
+                                 @"destination":destinationString,
+                                 @"mode":@"driving",
+                                 @"key":GoogleApi};
     
-    NSURLSessionDataTask *fetchDirectionsTask = [[NSURLSession sharedSession] dataTaskWithURL:directionsUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-                                                 {
-                                                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                                                     if(error)
-                                                     {
-                                                         errorBlock(error);
-                                                         return;
-                                                     }
-                                                     
-                                                     NSArray *routesArray = [json objectForKey:@"routes"];
-                                                     
-                                                     if ([routesArray count] > 0)
-                                                     {
-                                                         NSDictionary *routeDict = [routesArray objectAtIndex:0];
-                                                         NSDictionary *routeOverviewPolyline = [routeDict objectForKey:@"overview_polyline"];
-                                                         NSString *points = [routeOverviewPolyline objectForKey:@"points"];
-                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                             GMSPath* path = [GMSPath pathFromEncodedPath: points];
-                                                             if(completionHandler)
-                                                             {completionHandler(path);}
-                                                         });
-                                                     }
-                                                     else
-                                                     {
-                                                         errorBlock(error);
-                                                     }
-                                                 }];
-    [fetchDirectionsTask resume];
+    [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject:nil;
+        if (dict) {
+            [self parsePolyline:dict completionHandler:completionHandler errorBlock:errorBlock];
+        }
+        else {
+            errorBlock(nil);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        errorBlock(error);
+    }];
 }
 
-- (void)fetchReverseGeocoding:(CLLocationCoordinate2D)coord
-            completionHandler:(void (^)(NSDictionary *))completionHandler
-                   errorBlock: (ErrorBlock) errorBlock
-{
+- (void)getGeocoding:(NSString*)address
+   completionHandler:(ComplateLocation)completionHandler {
     
-    //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=
-    
-    NSString *coordString = [NSString stringWithFormat:@"%f,%f", coord.latitude, coord.longitude];
-    NSString *directionsAPI = @"https://maps.googleapis.com/maps/api/geocode/json?";
-    NSString *directionsUrlString = [NSString stringWithFormat:@"%@&latlng=%@&language=ru", directionsAPI, coordString];
-    NSURL *directionsUrl = [NSURL URLWithString:directionsUrlString];
-    
-    
-    NSURLSessionDataTask *fetchDirectionsTask = [[NSURLSession sharedSession] dataTaskWithURL:directionsUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-                                                 {
-                                                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                                                     if(error)
-                                                     {
-                                                         errorBlock(error);
-                                                         return;
-                                                     }
-                                                     
-                                                     NSArray* routesArray = [json objectForKey:@"results"];
-                                                     if (routesArray.count <= 0)
-                                                     {
-                                                         errorBlock(nil);
-                                                         return;
-                                                     }
-                                                     
-                                                     NSMutableDictionary* tempDict = [NSMutableDictionary dictionary];
-                                                     for (NSDictionary* dict in routesArray)
-                                                     {
-                                                         NSArray* types = [dict objectForKey:@"types"];
-                                                         if ([types containsObject:@"locality"])
-                                                         {
-                                                             NSArray* addressComponents = [dict objectForKey:@"address_components"];
-                                                             NSDictionary* cityName = [[addressComponents firstObject] objectForKey:@"long_name"];
-                                                             [tempDict setObject:cityName forKey:@"city"];
-                                                         }
-                                                         else if ([types containsObject:@"country"])
-                                                         {
-                                                             [tempDict setObject:[dict objectForKey:@"formatted_address"] forKey:@"country"];
-                                                         }
-                                                     }
-                                                     
-                                                     completionHandler(tempDict);
-                                                     
-                                                 }];
-    
-    [fetchDirectionsTask resume];
-}
-
-- (void)fetchGeocoding:(NSString*) address
-     completionHandler:(void (^)(CLLocationCoordinate2D))completionHandler
-            errorBlock: (ErrorBlock) errorBlock
-{
     //https://maps.googleapis.com/maps/api/geocode/json?address=Центральная,+Чемеровцы,+Украина
-    
     NSString *directionsAPI = @"https://maps.googleapis.com/maps/api/geocode/json?";
-    NSString *directionsUrlString = [NSString stringWithFormat:@"%@&address=%@&key=%@", directionsAPI, address,GoogleApi];
+    //NSString *addressString = [address stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    directionsUrlString = [directionsUrlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSURL *directionsUrl = [NSURL URLWithString:directionsUrlString];
+    NSDictionary *parameters = @{@"address":address};
+                                // @"key":GoogleApi}; //no needed
     
-    NSURLSessionDataTask *fetchDirectionsTask = [[NSURLSession sharedSession] dataTaskWithURL:directionsUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject:nil;
+        if (dict) {
+            [self parseGeocoding:dict completionHandler:completionHandler];
+        }
+    } failure:nil];
+}
+
+#pragma mark - Processing result, Parse and other
+
+- (void)parsePlaceAddress:(NSDictionary*)dict
+        completionHandler:(ComplateReversGeo)completionHandler
+               errorBlock:(ErrorBlock)errorBlock {
+    
+    NSArray *routesArray = [dict objectForKey:@"results"];
+    if (routesArray.count == 0)
     {
-        
-        if((error)||(!data))
+        errorBlock(nil);
+        return;
+    }
+
+    for (NSDictionary *dict in routesArray)
+    {
+        NSArray *types = [dict objectForKey:@"types"];
+        if ([types containsObject:@"locality"])
         {
-            errorBlock(error);
-            return;
+            NSArray *addressComponents = [dict objectForKey:@"address_components"];
+            NSString *cityName = [[addressComponents firstObject] objectForKey:@"long_name"];
+            completionHandler(cityName);
         }
-        
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        
-        if(error)
-        {
-            errorBlock(error);
-            return;
-        }
-        
-        NSString* status = [json objectForKey:@"status"];
-        
-        if (![status isEqualToString:@"OK"])
-        {
-            errorBlock(nil);
-            return;
-        }
-        NSDictionary* dict = [[json objectForKey:@"results"] firstObject];
-        if (!dict)
-        {
-            errorBlock(nil);
-            return;
-        }
-        
-        NSDictionary* geometry = [dict objectForKey:@"geometry"];
-        if (!geometry)
-        {
-            errorBlock(nil);
-            return;
-        }
-        
-        NSDictionary* location = [geometry objectForKey:@"location"];
-        if (!geometry)
-        {
-            errorBlock(nil);
-            return;
-        }
-        
-        double lat = [[location objectForKey:@"lat"] doubleValue];
-        double lng = [[location objectForKey:@"lng"] doubleValue];
-        
-        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(lat, lng);
-        
-        if (lat&&lng)
-        {
-            completionHandler(coord);
-        }
-        
-   }];
-    [fetchDirectionsTask resume];
+    }
+}
+
+
+- (void)parsePolyline:(NSDictionary*)dict
+    completionHandler:(void (^)(GMSPath *))completionHandler
+           errorBlock: (ErrorBlock) errorBlock {
+    
+    NSArray *routesArray = [dict objectForKey:@"routes"];
+    
+    if ([routesArray count] > 0)
+    {
+        NSDictionary *routeDict = [routesArray objectAtIndex:0];
+        NSDictionary *routeOverviewPolyline = [routeDict objectForKey:@"overview_polyline"];
+        NSString *points = [routeOverviewPolyline objectForKey:@"points"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            GMSPath* path = [GMSPath pathFromEncodedPath: points];
+            completionHandler(path);
+        });
+    }
+    else
+    {
+        errorBlock(nil);
+    }
 
 }
 
+- (void)parseGeocoding:(NSDictionary*)dict
+     completionHandler:(ComplateLocation)completionHandler {
+    
+    NSString* status = [dict objectForKey:@"status"];
+    
+    if (![status isEqualToString:@"OK"]) {
+        return;
+    }
+    NSDictionary* resultsDict = [[dict objectForKey:@"results"] firstObject];
+    if (!resultsDict) {
+        return;
+    }
+    
+    NSDictionary* geometry = [resultsDict objectForKey:@"geometry"];
+    if (!geometry) {
+        return;
+    }
+    
+    NSDictionary* locationDict = [geometry objectForKey:@"location"];
+    if (!geometry) {
+        return;
+    }
+    
+    CLLocationDegrees lat = [[locationDict objectForKey:@"lat"] doubleValue];
+    CLLocationDegrees lng = [[locationDict objectForKey:@"lng"] doubleValue];
+    
+    CLLocation* location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+    
+    if (locationDict) {
+        completionHandler(location);
+    }
+}
 @end

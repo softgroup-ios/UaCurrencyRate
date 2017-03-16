@@ -11,12 +11,11 @@
 
 @implementation BankPlace
 
-- (void) setCoordinate:(CLLocationCoordinate2D)coordinate
-{
+- (void) setCoordinate:(CLLocationCoordinate2D)coordinate {
     static UIImageView* bankomatLogo;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"map_icon"]];
+        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"marker"]];
     });
     
     _coordinate = coordinate;
@@ -25,24 +24,19 @@
     self.marker.title = self.placeUa;
     self.marker.snippet = self.fullAddressUa;
     self.marker.iconView = bankomatLogo;
-    self.marker.iconView.frame = CGRectMake(0, 0, 10, 10);
+    self.marker.iconView.frame = CGRectMake(0, 0, 20, 20);
 }
 
-- (void) setType:(NSString *)type
-{
-    _type = nil;
+- (void) setType:(NSString *)type {
     _type = type;
     
-    if ([type isEqualToString:@"TSO"])
-    {
+    if ([type isEqualToString:@"TSO"]) {
         self.typeOfEnum = TSO;
     }
-    else if ([type isEqualToString:@"ATM"])
-    {
+    else if ([type isEqualToString:@"ATM"]) {
         self.typeOfEnum = ATM;
     }
-    else if ([type isEqualToString:@"OFFICE"])
-    {
+    else if ([type isEqualToString:@"OFFICE"]) {
         self.typeOfEnum = OFFICE;
     }
 

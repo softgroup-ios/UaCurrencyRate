@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0113341DE58ABE33BA88126D /* libPods-Exchange.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D389B3CE6C7563BAF4D55C5 /* libPods-Exchange.a */; };
+		97280D441E7AF29900D21F09 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 97280D431E7AF29900D21F09 /* style.json */; };
 		973069171E7997610058201D /* AllPlaceMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 973069141E7997610058201D /* AllPlaceMapController.m */; };
 		973069181E7997610058201D /* InfoWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 973069161E7997610058201D /* InfoWindowView.m */; };
 		973069201E79977C0058201D /* BankPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730691B1E79977C0058201D /* BankPlace.m */; };
 		973069211E79977C0058201D /* GoogleAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730691D1E79977C0058201D /* GoogleAPIManager.m */; };
-		973069221E79977C0058201D /* PrivatBankApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730691F1E79977C0058201D /* PrivatBankApiManager.m */; };
+		973069221E79977C0058201D /* PrivatBankAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 9730691F1E79977C0058201D /* PrivatBankAPI.m */; };
 		9F655F9D1E5D8D1000722398 /* CurrencyConvertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F655F9C1E5D8D1000722398 /* CurrencyConvertVC.m */; };
 		9FCBCFEF1E5C9AA50086ED80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBCFEE1E5C9AA50086ED80 /* main.m */; };
 		9FCBCFF21E5C9AA50086ED80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBCFF11E5C9AA50086ED80 /* AppDelegate.m */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		5D389B3CE6C7563BAF4D55C5 /* libPods-Exchange.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Exchange.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D72B3AB1D93154F483D432 /* libPods-ExchangeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExchangeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97280D431E7AF29900D21F09 /* style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		973069131E7997610058201D /* AllPlaceMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllPlaceMapController.h; sourceTree = "<group>"; };
 		973069141E7997610058201D /* AllPlaceMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllPlaceMapController.m; sourceTree = "<group>"; };
 		973069151E7997610058201D /* InfoWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoWindowView.h; sourceTree = "<group>"; };
@@ -54,8 +56,8 @@
 		9730691B1E79977C0058201D /* BankPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BankPlace.m; path = "models & managers/BankPlace.m"; sourceTree = "<group>"; };
 		9730691C1E79977C0058201D /* GoogleAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoogleAPIManager.h; path = "models & managers/GoogleAPIManager.h"; sourceTree = "<group>"; };
 		9730691D1E79977C0058201D /* GoogleAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoogleAPIManager.m; path = "models & managers/GoogleAPIManager.m"; sourceTree = "<group>"; };
-		9730691E1E79977C0058201D /* PrivatBankApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrivatBankApiManager.h; path = "models & managers/PrivatBankApiManager.h"; sourceTree = "<group>"; };
-		9730691F1E79977C0058201D /* PrivatBankApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrivatBankApiManager.m; path = "models & managers/PrivatBankApiManager.m"; sourceTree = "<group>"; };
+		9730691E1E79977C0058201D /* PrivatBankAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrivatBankAPI.h; path = "models & managers/PrivatBankAPI.h"; sourceTree = "<group>"; };
+		9730691F1E79977C0058201D /* PrivatBankAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrivatBankAPI.m; path = "models & managers/PrivatBankAPI.m"; sourceTree = "<group>"; };
 		9F190D311E670F1C0056E058 /* CurrencyKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CurrencyKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F655F9A1E5D7EB800722398 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		9F655F9B1E5D8D1000722398 /* CurrencyConvertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyConvertVC.h; sourceTree = "<group>"; };
@@ -146,8 +148,8 @@
 				9730691B1E79977C0058201D /* BankPlace.m */,
 				9730691C1E79977C0058201D /* GoogleAPIManager.h */,
 				9730691D1E79977C0058201D /* GoogleAPIManager.m */,
-				9730691E1E79977C0058201D /* PrivatBankApiManager.h */,
-				9730691F1E79977C0058201D /* PrivatBankApiManager.m */,
+				9730691E1E79977C0058201D /* PrivatBankAPI.h */,
+				9730691F1E79977C0058201D /* PrivatBankAPI.m */,
 			);
 			name = "models & managers";
 			sourceTree = "<group>";
@@ -199,6 +201,7 @@
 				9FCBCFFB1E5C9AA50086ED80 /* LaunchScreen.storyboard */,
 				9FCBCFF91E5C9AA50086ED80 /* Assets.xcassets */,
 				9FCBCFFE1E5C9AA50086ED80 /* Info.plist */,
+				97280D431E7AF29900D21F09 /* style.json */,
 				9FCBCFED1E5C9AA50086ED80 /* Supporting Files */,
 			);
 			path = Exchange;
@@ -394,6 +397,7 @@
 				9FCBCFFD1E5C9AA50086ED80 /* LaunchScreen.storyboard in Resources */,
 				9FCBCFFA1E5C9AA50086ED80 /* Assets.xcassets in Resources */,
 				9FCBCFF81E5C9AA50086ED80 /* Main.storyboard in Resources */,
+				97280D441E7AF29900D21F09 /* style.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,7 +480,7 @@
 				9FCBD0231E5CA1D60086ED80 /* ServerManager.m in Sources */,
 				9F655F9D1E5D8D1000722398 /* CurrencyConvertVC.m in Sources */,
 				973069181E7997610058201D /* InfoWindowView.m in Sources */,
-				973069221E79977C0058201D /* PrivatBankApiManager.m in Sources */,
+				973069221E79977C0058201D /* PrivatBankAPI.m in Sources */,
 				9FCBD0261E5CA47F0086ED80 /* СurrencyModel.m in Sources */,
 				973069201E79977C0058201D /* BankPlace.m in Sources */,
 				973069211E79977C0058201D /* GoogleAPIManager.m in Sources */,

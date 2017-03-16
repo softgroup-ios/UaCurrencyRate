@@ -11,8 +11,10 @@
 
 #define GoogleApi  @"AIzaSyDx4GFZHF_XYKDtqZEv80P8E85CofbLBLU"
 
-typedef void (^ErrorBlock)(NSError*);
-
+typedef void (^ErrorBlock)(NSError* error);
+typedef void (^ComplateLocation)(CLLocation* location);
+typedef void (^ComplatePath)(GMSPath* path);
+typedef void (^ComplateReversGeo)(NSString* city);
 
 @interface GoogleAPIManager : NSObject
 
@@ -22,15 +24,14 @@ typedef void (^ErrorBlock)(NSError*);
 
 - (void)getPolylineWithOrigin:(CLLocationCoordinate2D)origin
                     destination:(CLLocationCoordinate2D)destination
-              completionHandler:(void (^)(GMSPath *))completionHandler
+              completionHandler:(ComplatePath)completionHandler
                      errorBlock: (ErrorBlock) errorBlock;
 
 - (void)getReverseGeocoding:(CLLocationCoordinate2D)coord
-            completionHandler:(void (^)(NSDictionary *))completionHandler
+            completionHandler:(ComplateReversGeo)completionHandler
                    errorBlock: (ErrorBlock) errorBlock;
 
-- (void)getGeocoding:(NSString*) address
-     completionHandler:(void (^)(CLLocationCoordinate2D))completionHandler
-            errorBlock: (ErrorBlock) errorBlock;
+- (void)getGeocoding:(NSString*)address
+   completionHandler:(ComplateLocation)completionHandler;
 
 @end

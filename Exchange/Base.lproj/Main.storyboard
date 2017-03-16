@@ -16,7 +16,7 @@
         <scene sceneID="Bpd-XK-Ltw">
             <objects>
                 <navigationController id="uTe-rg-tO9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iyr-cf-i6r">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iyr-cf-i6r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -346,7 +346,7 @@
                                 </constraints>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Oa-eq-TsG">
-                                <rect key="frame" x="223" y="304.5" width="125" height="30"/>
+                                <rect key="frame" x="223" y="305" width="125" height="30"/>
                                 <color key="backgroundColor" red="0.18200889229774475" green="0.20988819003105164" blue="0.25958013534545898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <segments>
                                     <segment title="Sell"/>
@@ -401,7 +401,7 @@
                                 <rect key="frame" x="0.0" y="384" width="375" height="263"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpr-aD-dfz">
-                                <rect key="frame" x="223" y="372.5" width="39.5" height="29"/>
+                                <rect key="frame" x="223" y="373" width="40" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wpr-aD-dfz" secondAttribute="height" multiplier="19:14" id="gYt-1S-VdK"/>
                                 </constraints>
@@ -422,13 +422,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eArrow" translatesAutoresizingMaskIntoConstraints="NO" id="qOY-ev-r8h">
-                                <rect key="frame" x="155" y="337.5" width="65" height="60"/>
+                                <rect key="frame" x="155" y="338" width="65" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="CzO-pi-r00"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="e1K-yf-XGa">
-                                <rect key="frame" x="223" y="347.5" width="55" height="40"/>
+                                <rect key="frame" x="223" y="348" width="55" height="40"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="33"/>
                                 <color key="textColor" red="0.99963909390000005" green="1" blue="0.99975615740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -443,7 +443,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Internet connection appears to be offline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tp8-jN-fNe">
-                                <rect key="frame" x="28" y="408.5" width="320" height="48"/>
+                                <rect key="frame" x="28" y="409" width="320" height="48"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.67450980390000004" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -544,9 +544,10 @@
         <scene sceneID="67f-YQ-bmK">
             <objects>
                 <navigationController storyboardIdentifier="AllPlaceMapController" id="fRm-zS-itd" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="okf-4R-jKu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="okf-4R-jKu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="lBc-LN-N3p" kind="relationship" relationship="rootViewController" id="Fe1-Kd-UwX"/>
@@ -564,43 +565,64 @@
                         <viewControllerLayoutGuide type="top" id="hPA-J8-1Jj"/>
                         <viewControllerLayoutGuide type="bottom" id="G0b-iC-tqE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xxm-dW-Zva" customClass="GMSMapView">
+                    <view key="view" contentMode="scaleToFill" id="xxm-dW-Zva">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5u8-l2-VCs" customClass="GMSMapView">
-                                <rect key="frame" x="-73" y="877" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UI-Na-1Rq" customClass="GMSMapView">
+                                <rect key="frame" x="-1" y="0.0" width="376" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sOM-Hh-qy3">
+                                        <rect key="frame" x="0.0" y="0.0" width="376" height="667"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="sOM-Hh-qy3" firstAttribute="centerY" secondItem="1UI-Na-1Rq" secondAttribute="centerY" id="II9-Xo-jq1"/>
+                                    <constraint firstItem="sOM-Hh-qy3" firstAttribute="centerX" secondItem="1UI-Na-1Rq" secondAttribute="centerX" id="OaE-9X-2aO"/>
+                                    <constraint firstItem="sOM-Hh-qy3" firstAttribute="width" secondItem="1UI-Na-1Rq" secondAttribute="width" id="lJV-pF-MGq"/>
+                                    <constraint firstItem="sOM-Hh-qy3" firstAttribute="height" secondItem="1UI-Na-1Rq" secondAttribute="height" id="qgf-NT-kmj"/>
+                                </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="1UI-Na-1Rq" firstAttribute="centerY" secondItem="xxm-dW-Zva" secondAttribute="centerY" id="0U0-mQ-gyT"/>
+                            <constraint firstItem="1UI-Na-1Rq" firstAttribute="height" secondItem="xxm-dW-Zva" secondAttribute="height" id="26d-LO-ITX"/>
+                            <constraint firstItem="1UI-Na-1Rq" firstAttribute="width" secondItem="xxm-dW-Zva" secondAttribute="width" id="XIz-zg-PVZ"/>
+                            <constraint firstItem="1UI-Na-1Rq" firstAttribute="centerX" secondItem="xxm-dW-Zva" secondAttribute="centerX" id="y2U-BR-Ira"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="VWq-mI-ENh">
-                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="aEz-gx-WFr">
+                        <barButtonItem key="leftBarButtonItem" image="cancel_button" id="aEz-gx-WFr">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="BackButton:" destination="lBc-LN-N3p" id="7v8-vt-qRD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="B7f-8V-1St">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="eK4-ZB-t0W">
-                                <rect key="frame" x="151" y="7" width="208" height="30"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="B7f-8V-1St">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="1" id="eK4-ZB-t0W">
+                                <rect key="frame" x="125" y="7" width="234" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="ATM"/>
-                                    <segment title="TSO"/>
-                                    <segment title="Office"/>
+                                    <segment title="Банкомати"/>
+                                    <segment title="Термінали"/>
+                                    <segment title="Відділення"/>
                                 </segments>
+                                <color key="tintColor" red="0.98165626280277785" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="changeTypePlaces:" destination="lBc-LN-N3p" eventType="valueChanged" id="auO-yi-DPg"/>
                                 </connections>
                             </segmentedControl>
+                            <color key="tintColor" red="0.3803921569" green="0.3803921569" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="mapView" destination="xxm-dW-Zva" id="tXB-ht-apo"/>
+                        <outlet property="mapView" destination="1UI-Na-1Rq" id="zsY-3R-k4U"/>
                         <outlet property="typePlaceSegmentController" destination="eK4-ZB-t0W" id="mvh-0V-6Nz"/>
                     </connections>
                 </viewController>
@@ -610,6 +632,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cancel_button" width="22" height="22"/>
         <image name="eArrow" width="128" height="128"/>
         <image name="internet" width="512" height="512"/>
         <image name="map_icon" width="22" height="22"/>

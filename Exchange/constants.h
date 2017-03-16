@@ -17,6 +17,7 @@
     alpha:1.0]
 
 #define BACKGROUND_COLOR UIColorFromRGB(0x2E3642)
+#define BACKGROUND_MAP_COLOR UIColorFromRGB(0x242F3E)
 #define GREEN_COLOR UIColorFromRGB(0x94DD3B)
 #define WHITE_COLOR UIColorFromRGB(0xFFFFFF)
 
