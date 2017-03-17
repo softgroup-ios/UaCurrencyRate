@@ -144,16 +144,18 @@
            return;
        }
        GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
-       
        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
-       GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds];
-       [self.mapView moveCamera:update];
+        
+       UIEdgeInsets insets = UIEdgeInsetsMake(60, 30, 30, 30);
+       GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:insets];
+       [self.mapView animateWithCameraUpdate:update];
        
        self.placePolyline.map = nil;
        self.placePolyline = nil;
        
        self.placePolyline = polyline;
        self.placePolyline.strokeWidth = 2.f;
+       self.placePolyline.strokeColor = [UIColor whiteColor];
        self.placePolyline.map = self.mapView;
        
    } errorBlock:^(NSError* error) {
