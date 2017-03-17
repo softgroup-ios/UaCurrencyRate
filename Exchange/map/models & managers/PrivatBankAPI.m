@@ -91,12 +91,18 @@
         
         NSString* type = [dict objectForKey:@"type"];
         NSString* fullAddressUa = [dict objectForKey:@"fullAddressUa"];
+        NSString* fullAddressRu = [dict objectForKey:@"fullAddressRu"];
+        NSString* fullAddressEn = [dict objectForKey:@"fullAddressEn"];
         NSString* placeUa = [dict objectForKey:@"placeUa"];
+        NSString* placeRu = [dict objectForKey:@"placeRu"];
+        
+        NSString* address = ![fullAddressUa isEqualToString:@""]?fullAddressUa : ![fullAddressRu isEqualToString:@""]?fullAddressRu : fullAddressEn;
+        NSString* placeString = ![placeUa isEqualToString:@""]?placeUa : placeRu;
         
         BankPlace* place = [[BankPlace alloc]init];
         place.type = type;
-        place.fullAddressUa = fullAddressUa;
-        place.placeUa = placeUa;
+        place.fullAddressUa = address;
+        place.placeUa = placeString;
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
     
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -133,7 +139,7 @@
             
             BankPlace* place = [[BankPlace alloc]init];
             place.type = type;
-            place.fullAddressUa = fullAddressUa;
+            place.fullAddressUa = address;
             place.placeUa = placeUa;
             dispatch_async(dispatch_get_main_queue(), ^{
                 place.coordinate = location.coordinate;

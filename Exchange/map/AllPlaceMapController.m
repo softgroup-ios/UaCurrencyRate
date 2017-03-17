@@ -14,8 +14,8 @@
 #import "PrivatBankAPI.h"
 #import "GoogleAPIManager.h"
 #import "BankPlace.h"
-#import "InfoWindowView.h"
 #import "constants.h"
+#import "MarkerView.h"
 
 
 
@@ -32,7 +32,7 @@
 @property (strong, nonatomic) NSMutableSet* setOfOffice;
 @property (strong, nonatomic) NSMutableSet* setOfATM;
 @property (strong, nonatomic) NSMutableSet* setOfTSO;
-@property (strong, nonatomic) InfoWindowView* infoWindowView;
+@property (strong, nonatomic) MarkerView* infoWindowView;
 
 @property (strong, nonatomic) GMSMarker* placeMarker;
 @property (strong, nonatomic) GMSPolyline* placePolyline;
@@ -71,18 +71,14 @@
     self.setOfATM = [NSMutableSet set];
     self.setOfTSO = [NSMutableSet set];
     
-    //[self initInfoWindowView];
+    [self initInfoWindowView];
 }
 
 
 - (void)customizeMap {
     
     NSURL *styleUrl = [[NSBundle mainBundle] URLForResource:@"style" withExtension:@"json"];
-    
-    NSError *error;
-    // Set the map style by passing the URL for style.json.
-    GMSMapStyle *style = [GMSMapStyle styleWithContentsOfFileURL:styleUrl error:&error];
-    
+    GMSMapStyle *style = [GMSMapStyle styleWithContentsOfFileURL:styleUrl error:nil];
     self.mapView.mapStyle = style;
 }
 
@@ -103,15 +99,14 @@
     [self.locManager requestWhenInUseAuthorization];
 }
 
-- (void) initInfoWindowView
-{
-    self.infoWindowView = [[[NSBundle mainBundle] loadNibNamed:@"InfoWindowView" owner:self options:nil] firstObject];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
+- (void) initInfoWindowView {
+
+    self.infoWindowView =  [[[NSBundle mainBundle] loadNibNamed:@"MarkerView" owner:self options:nil] firstObject];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.infoWindowView.bounds = CGRectMake(0, 0, 250, 70);
     }
-    else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
+    else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.infoWindowView.bounds = CGRectMake(0, 0, 450, 80);
     }
 }
@@ -127,11 +122,45 @@
 }
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    
     self.infoWindowView.titleLabel.text = marker.title;
     self.infoWindowView.detailedLabel.text = marker.snippet;
+    self.infoWindowView.layer.cornerRadius = 14.f;
     
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
+    view.layer.cornerRadius = 14.f;
+    view.backgroundColor = [UIColor whiteColor];
+    //customize the UIView, for example, in your case, add a UILabel as the subview of the view
+    //return view;
     return self.infoWindowView;
 }
+
+- (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(nonnull GMSMarker *)marker {
+    [self.googleAPIManager getPolylineWithOrigin:self.previusLocation.coordinate
+                                     destination:self.mapView.selectedMarker.position
+                               completionHandler:^(GMSPath* path)
+    {
+       if (!path) {
+           return;
+       }
+       GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
+       
+       GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
+       GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds];
+       [self.mapView moveCamera:update];
+       
+       self.placePolyline.map = nil;
+       self.placePolyline = nil;
+       
+       self.placePolyline = polyline;
+       self.placePolyline.strokeWidth = 2.f;
+       self.placePolyline.map = self.mapView;
+       
+   } errorBlock:^(NSError* error) {
+       
+   }];
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -153,7 +182,10 @@
     void(^ChangeSelfLocation)(CLLocation*) = ^(CLLocation* location) {
         self.previusLocation = location;
         self.mapView.myLocationEnabled =  YES;
-        self.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:13 bearing:0 viewingAngle:0];
+        
+        CGFloat widthPoint = [UIApplication sharedApplication].keyWindow.bounds.size.width;
+        CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:2000 perPoints:widthPoint];
+        self.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:zoom bearing:0 viewingAngle:0];
         
         [self.googleAPIManager getReverseGeocoding:location.coordinate completionHandler:^(NSString* cityName){
             
@@ -185,55 +217,30 @@
     
 }
 
+#pragma mark - HELP methods
+
 - (void)takeBankPlace:(BankPlace*)place {
     
     switch (place.typeOfEnum) {
-         case ATM:
-             [self.setOfATM addObject:place];
-             break;
-         case TSO:
+        case ATM:
+            [self.setOfATM addObject:place];
+            break;
+        case TSO:
             place.marker.map = self.mapView;
-             [self.setOfTSO addObject:place];
-             break;
-         case OFFICE:
+            [self.setOfTSO addObject:place];
+            break;
+        case OFFICE:
             place.marker.map = self.mapView;
-             [self.setOfOffice addObject:place];
-             break;
-         default:
-             break;
-     }
+            [self.setOfOffice addObject:place];
+            break;
+        default:
+            break;
+    }
     
     if (self.typePlaceSegmentController.selectedSegmentIndex == place.typeOfEnum) {
         place.marker.map = self.mapView;
     }
 }
-
-- (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(nonnull GMSMarker *)marker {
-    [self.googleAPIManager getPolylineWithOrigin:self.previusLocation.coordinate
-                                     destination:self.mapView.selectedMarker.position
-                               completionHandler:^(GMSPath* path) {
-         if (!path) {
-             return;
-         }
-         GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
-         
-         GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
-         GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds];
-         [self.mapView moveCamera:update];
-         
-         self.placePolyline.map = nil;
-         self.placePolyline = nil;
-         
-         self.placePolyline = polyline;
-         self.placePolyline.strokeWidth = 2.f;
-         self.placePolyline.map = self.mapView;
-         
-     } errorBlock:^(NSError* error) {
-         
-     }];
-}
-
-#pragma mark - HELP methods
 
 - (void) removeAllPlaces {
     dispatch_async(dispatch_get_main_queue(), ^{

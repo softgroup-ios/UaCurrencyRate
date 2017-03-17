@@ -6,9 +6,8 @@
 //  Copyright © 2016 admin. All rights reserved.
 //
 
-#import "InfoWindowView.h"
+#import "MarkerView.h"
 
-@implementation InfoWindowView
-
+@implementation MarkerView
 
 @end

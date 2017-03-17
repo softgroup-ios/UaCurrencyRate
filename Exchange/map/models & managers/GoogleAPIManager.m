@@ -67,7 +67,8 @@
     
     NSDictionary *parameters = @{@"origin":originString,
                                  @"destination":destinationString,
-                                 @"mode":@"driving",
+                                 @"mode":@"walking",
+                                 @"alternatives":@(YES),
                                  @"key":GoogleApi};
     
     [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
