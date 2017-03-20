@@ -47,12 +47,12 @@
         if([model.exchangeToCurrency  isEqual: @"EUR"]){
             [sortedModelsArray addObject:model];
         }else
-            if([model.exchangeToCurrency  isEqual: @"USD"]){
-                [sortedModelsArray addObject:model];
-            }else
-                if([model.exchangeToCurrency  isEqual: @"RUB"]){
-                    [sortedModelsArray addObject:model];
-                }
+        if([model.exchangeToCurrency  isEqual: @"USD"]){
+            [sortedModelsArray addObject:model];
+        }else
+        if([model.exchangeToCurrency  isEqual: @"RUB"]){
+            [sortedModelsArray addObject:model];
+        }
     }
     return sortedModelsArray;
 }

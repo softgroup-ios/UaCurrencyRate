@@ -90,10 +90,12 @@
             if([model.exchangeToCurrency  isEqual: @"EUR"]){
                 self.eurModel = model;
             }else
-                if([model.exchangeToCurrency  isEqual: @"RUR"]){
-                    self.rubModel = model;
-                }else
-                    self.usdModel = model;
+            if([model.exchangeToCurrency  isEqual: @"RUR"]){
+                self.rubModel = model;
+            }else
+            if([model.exchangeToCurrency  isEqual: @"USD"]){
+                self.usdModel = model;
+            }
         }
         [self checkInternetConnection];
         [self updateLabels];
@@ -111,10 +113,10 @@
             if([model.exchangeToCurrency  isEqual: @"EUR"]){
                 self.yesterdayEurModel = model;
             }else
-                if([model.exchangeToCurrency  isEqual: @"RUB"]){
-                    self.yesterdayRubModel = model;
-                }else
-                    self.yesterdayUsdModel = model;
+            if([model.exchangeToCurrency  isEqual: @"RUB"]){
+                self.yesterdayRubModel = model;
+            }else
+                self.yesterdayUsdModel = model;
         }
         [self setCompracions];
     }];
@@ -171,10 +173,10 @@
         [imageView setTintColor:RATING_UP];
     }
     else
-        if(firstM.buyRate < secondM.buyRate){
-            imageView.image = [UIImage imageNamed:@"arrow_down"];
-            imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-            [imageView setTintColor:RATING_DOWN];
+    if(firstM.buyRate < secondM.buyRate){
+        imageView.image = [UIImage imageNamed:@"arrow_down"];
+        imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [imageView setTintColor:RATING_DOWN];
     }
 }
 
@@ -218,15 +220,15 @@
         [self setTextColorBy:compracion for:label];
     }
     else
-        if(recognizer.view.tag == 2){
-            compracion = _rubModel.buyRate - _yesterdayRubModel.buyRate;
-            [self setTextColorBy:compracion for:label];
-        }
-        else
-            if(recognizer.view.tag == 3){
-                compracion = _usdModel.buyRate - _yesterdayUsdModel.buyRate;
-                [self setTextColorBy:compracion for:label];
-            }
+    if(recognizer.view.tag == 2){
+        compracion = _rubModel.buyRate - _yesterdayRubModel.buyRate;
+        [self setTextColorBy:compracion for:label];
+    }
+    else
+    if(recognizer.view.tag == 3){
+        compracion = _usdModel.buyRate - _yesterdayUsdModel.buyRate;
+        [self setTextColorBy:compracion for:label];
+    }
     
     label.font = [UIFont systemFontOfSize:23.f];
     [label sizeToFit];
@@ -250,10 +252,10 @@
         label.textColor = [GREEN_COLOR colorWithAlphaComponent:0.8f];
         label.text = [NSString stringWithFormat:@"+%.2f",compracion];
     }else
-        if(compracion < 0){
-            label.textColor = [RATING_DOWN colorWithAlphaComponent:0.8f];
-            label.text = [NSString stringWithFormat:@"%.2f",compracion];
-        }
+    if(compracion < 0){
+        label.textColor = [RATING_DOWN colorWithAlphaComponent:0.8f];
+        label.text = [NSString stringWithFormat:@"%.2f",compracion];
+    }
 }
 
 #pragma mark - Data to string
