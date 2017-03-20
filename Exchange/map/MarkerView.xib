@@ -38,7 +38,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="path-icon-green-200" highlightedImage="path-icon-black-200" translatesAutoresizingMaskIntoConstraints="NO" id="1X0-ia-BOX">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="path-icon-green-200" highlightedImage="path-icon-white-200" translatesAutoresizingMaskIntoConstraints="NO" id="1X0-ia-BOX">
                             <rect key="frame" x="206" y="51" width="58" height="58"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="1X0-ia-BOX" secondAttribute="height" multiplier="1:1" id="nSB-t0-OCg"/>
@@ -99,7 +99,7 @@
     <resources>
         <image name="arrow-64" width="64" height="64"/>
         <image name="bank-icon-256" width="256" height="256"/>
-        <image name="path-icon-black-200" width="200" height="200"/>
         <image name="path-icon-green-200" width="200" height="200"/>
+        <image name="path-icon-white-200" width="200" height="200"/>
     </resources>
 </document>

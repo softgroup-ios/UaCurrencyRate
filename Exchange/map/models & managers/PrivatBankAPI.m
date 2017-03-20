@@ -99,6 +99,9 @@
         NSString* address = ![fullAddressUa isEqualToString:@""]?fullAddressUa : ![fullAddressRu isEqualToString:@""]?fullAddressRu : fullAddressEn;
         NSString* placeString = ![placeUa isEqualToString:@""]?placeUa : placeRu;
         
+        address = [address stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        placeString = [placeString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        
         BankPlace* place = [[BankPlace alloc]init];
         place.type = type;
         place.fullAddressUa = address;
@@ -140,7 +143,7 @@
             BankPlace* place = [[BankPlace alloc]init];
             place.type = type;
             place.fullAddressUa = address;
-            place.placeUa = placeUa;
+            place.placeUa = [placeUa stringByReplacingOccurrencesOfString:@"\\" withString:@""];;
             dispatch_async(dispatch_get_main_queue(), ^{
                 place.coordinate = location.coordinate;
                 [self.delegate takeBankPlace:place];

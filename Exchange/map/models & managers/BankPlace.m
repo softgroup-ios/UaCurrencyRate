@@ -16,12 +16,12 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         //set marker icon
-        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"pointer"]];
+        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"marker"]];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             bankomatLogo.bounds = CGRectMake(0, 0, 20, 20);
         }
         else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            bankomatLogo.bounds = CGRectMake(0, 0, 50, 50);
+            bankomatLogo.bounds = CGRectMake(0, 0, 40, 40);
         }
     });
     

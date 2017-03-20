@@ -109,21 +109,26 @@
                errorBlock:(ErrorBlock)errorBlock {
     
     NSArray *routesArray = [dict objectForKey:@"results"];
-    if (routesArray.count == 0)
-    {
+    if (routesArray.count == 0) {
         errorBlock(nil);
         return;
     }
 
-    for (NSDictionary *dict in routesArray)
-    {
+    NSDictionary *foundDict;
+    for (NSDictionary *dict in routesArray) {
         NSArray *types = [dict objectForKey:@"types"];
-        if ([types containsObject:@"locality"])
-        {
-            NSArray *addressComponents = [dict objectForKey:@"address_components"];
-            NSString *cityName = [[addressComponents firstObject] objectForKey:@"long_name"];
-            completionHandler(cityName);
+        if ([types containsObject:@"locality"]) {
+            foundDict = dict;
         }
+    }
+    
+    if (foundDict) {
+        NSArray *addressComponents = [foundDict objectForKey:@"address_components"];
+        NSString *cityName = [[addressComponents firstObject] objectForKey:@"long_name"];
+        completionHandler(cityName);
+    }
+    else {
+        completionHandler(nil);
     }
 }
 

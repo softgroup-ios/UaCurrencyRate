@@ -55,7 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.mapView.backgroundColor = [UIColor blackColor];
+    self.mapView.backgroundColor = BACKGROUND_MAP_COLOR;
     
     self.backgroundView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
     self.backgroundView.backgroundColor = BACKGROUND_MAP_COLOR;
@@ -69,10 +69,6 @@
     
     self.googleAPIManager = [GoogleAPIManager sharedManager];
     self.mapView.delegate = self;
-    
-    self.setOfOffice = [NSMutableSet set];
-    self.setOfATM = [NSMutableSet set];
-    self.setOfTSO = [NSMutableSet set];
     
     [self initInfoWindowView];
 }
@@ -94,6 +90,7 @@
 }
 
 #pragma mark - init
+
 -(void) initLocationManager {
     self.locManager = [[CLLocationManager alloc]init];
     self.locManager.delegate = self;
@@ -172,41 +169,25 @@
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
-    //if current loc change
-    void(^ChangeSelfLocation)(CLLocation*) = ^(CLLocation* location) {
-        self.previusLocation = location;
-        self.mapView.myLocationEnabled =  YES;
-        
-        CGFloat widthPoint = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-        CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:2000 perPoints:widthPoint];
-        self.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:zoom bearing:0 viewingAngle:0];
-        
-        [self.googleAPIManager getReverseGeocoding:location.coordinate completionHandler:^(NSString* cityName){
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-            [self.mapView clear];
-            });
-            
-            [self.apiManager getAllBankPlaceInCity:cityName myLoc:location inRadius:1000];
-        } errorBlock:^(NSError* error) {
-            
-        }];
-    };
-    
     CLLocation *location = [locations lastObject];
+    
+    NSTimeInterval locationAge = -[location.timestamp timeIntervalSinceNow];
+    if (locationAge > 5.0) return;
+    
+    if (location.horizontalAccuracy < 0) return;
+    
+    NSLog(@"location: %@",location);
     //if location change more than 1000m
     if (self.previusLocation) {
         if([location distanceFromLocation:self.previusLocation] > 1000) {
-            if (location) {
-                ChangeSelfLocation(location);
-            }
+            [self changeLocation:location];
         }
         else {
             return;
         }
     }
-    else if (location) {
-        ChangeSelfLocation(location);
+    else {
+        [self changeLocation:location];
     }
     
 }
@@ -235,28 +216,9 @@
 }
 
 - (void) removeAllPlaces {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.setOfATM) {
-            for (BankPlace* place in self.setOfATM) {
-                place.marker.map = nil;
-            }
-            self.setOfATM = [NSMutableSet set];
-        }
-        
-        if (self.setOfOffice) {
-            for (BankPlace* place in self.setOfOffice) {
-                place.marker.map = nil;
-            }
-            self.setOfOffice = [NSMutableSet set];
-        }
-        
-        if (self.setOfTSO) {
-            for (BankPlace* place in self.setOfTSO) {
-                place.marker.map = nil;
-            }
-            self.setOfTSO = [NSMutableSet set];
-        }
-    });
+    self.setOfATM = [NSMutableSet set];
+    self.setOfOffice = [NSMutableSet set];
+    self.setOfTSO = [NSMutableSet set];
 }
 
 - (void)watchAllMarkersInSet:(NSSet*)markers {
@@ -277,7 +239,7 @@
          GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
          GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
          
-         UIEdgeInsets insets = UIEdgeInsetsMake(90, 50, 50, 50);
+         UIEdgeInsets insets = UIEdgeInsetsMake(160, 50, 50, 50);
          GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:insets];
          [self.mapView animateWithCameraUpdate:update];
          
@@ -285,13 +247,34 @@
          self.placePolyline = nil;
          
          self.placePolyline = polyline;
-         self.placePolyline.strokeWidth = 2.f;
-         self.placePolyline.strokeColor = [UIColor whiteColor];
+         self.placePolyline.strokeWidth = 3.f;
+         self.placePolyline.strokeColor = BACKGROUND_COLOR;
          self.placePolyline.map = self.mapView;
          
      } errorBlock:^(NSError* error) {
          
      }];
+}
+
+- (void)changeLocation:(CLLocation*)location {
+    
+    self.previusLocation = location;
+    self.mapView.myLocationEnabled =  YES;
+    
+    CGFloat widthPoint = [UIApplication sharedApplication].keyWindow.bounds.size.width;
+    CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:30000 perPoints:widthPoint];
+    self.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:zoom bearing:0 viewingAngle:0];
+    
+    [self.googleAPIManager getReverseGeocoding:location.coordinate completionHandler:^(NSString* cityName){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.mapView clear];
+            [self removeAllPlaces];
+        });
+        NSLog(@"location: %@",cityName);
+        [self.apiManager getAllBankPlaceInCity:cityName myLoc:location inRadius:15000];
+    } errorBlock:^(NSError* error) {
+        
+    }];
 }
 
 #pragma mark - Actions
