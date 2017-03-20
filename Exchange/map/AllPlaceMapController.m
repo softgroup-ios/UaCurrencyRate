@@ -176,7 +176,6 @@
     
     if (location.horizontalAccuracy < 0) return;
     
-    NSLog(@"location: %@",location);
     //if location change more than 1000m
     if (self.previusLocation) {
         if([location distanceFromLocation:self.previusLocation] > 1000) {
@@ -258,6 +257,7 @@
 
 - (void)changeLocation:(CLLocation*)location {
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.previusLocation = location;
     self.mapView.myLocationEnabled =  YES;
     
@@ -270,7 +270,6 @@
             [self.mapView clear];
             [self removeAllPlaces];
         });
-        NSLog(@"location: %@",cityName);
         [self.apiManager getAllBankPlaceInCity:cityName myLoc:location inRadius:15000];
     } errorBlock:^(NSError* error) {
         

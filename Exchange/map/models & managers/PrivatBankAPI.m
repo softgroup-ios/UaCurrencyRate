@@ -13,11 +13,14 @@
 
 
 
+
 @interface PrivatBankAPI ()
 @property (nonatomic, strong) AFHTTPSessionManager* networkManager;
 @property (nonatomic, strong) GoogleAPIManager* googleAPIManager;
 @property (nonatomic, strong) CLLocation* myLoc;
 @property (nonatomic, assign) CLLocationDistance distance;
+
+@property (nonatomic, assign) NSInteger isReady;
 @end
 
 @implementation PrivatBankAPI
@@ -31,6 +34,16 @@
     }
     return self;
 }
+
+- (void)setIsReady:(NSInteger)isReady {
+    _isReady = isReady;
+    if (_isReady == 3) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        });
+    }
+}
+
 #pragma mark - Manager Methods
 
 - (void)getAllBankPlaceInCity:(NSString*)city
@@ -50,18 +63,21 @@
     [self.networkManager GET:pboffice parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject) {
             [self parseOffice:responseObject];
+            self.isReady += 1;
         }
     } failure:nil];
     
     [self.networkManager GET:getTSO parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
          if (responseObject) {
              [self parseBankomat:responseObject];
+             self.isReady += 1;
          }
      } failure:nil];
     
     [self.networkManager GET:getATM parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
          if (responseObject) {
              [self parseBankomat:responseObject];
+             self.isReady += 1;
          }
      } failure:nil];
 
@@ -115,7 +131,7 @@
     }
 }
 
-- (void)parseOffice:(id)parseData {
+- (void)parseOffice:(NSArray*)parseData {
     
     if(![self checkIf:parseData isClass:[NSArray class]])
     {return;}
