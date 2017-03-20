@@ -104,13 +104,13 @@
     if(numberOfSelection == 0){
         return _usdModel;
     }else
-        if(numberOfSelection == 1){
-            return _eurModel;
-        }else
-            if(numberOfSelection == 2){
-                return _uahModel;
-            }else
-                return _rubModel;
+    if(numberOfSelection == 1){
+        return _eurModel;
+    }else
+    if(numberOfSelection == 2){
+        return _uahModel;
+    }else
+        return _rubModel;
 }
 
 -(void)swapValues{
@@ -139,10 +139,10 @@
     if(firstPickerModel == _uahModel){
             resultNum = (inputNum / secondModel);
     }else
-        if(secondPickerModel == _uahModel){
-            resultNum = (inputNum * firstModel);
-        }else
-            resultNum = (inputNum / secondModel)*firstModel;
+    if(secondPickerModel == _uahModel){
+        resultNum = (inputNum * firstModel);
+    }else
+        resultNum = (inputNum / secondModel)*firstModel;
     return resultNum;
 }
 
@@ -204,12 +204,10 @@
     for (int i = 0; i < [string length]; i++) {
         unichar c = [string characterAtIndex:i];
         if ([myCharSet characterIsMember:c]) {
-            
             NSString *newString = [_summToConvert.text stringByReplacingCharactersInRange:range withString:string];
             NSArray *sep = [newString componentsSeparatedByString:@","];
             if([sep count]>2) return NO;
             return YES;
-            
         }
     }
     UIAlertController *alert = [UIAlertController
