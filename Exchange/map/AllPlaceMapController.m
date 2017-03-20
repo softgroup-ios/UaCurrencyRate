@@ -44,6 +44,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *typePlaceSegmentController;
 
 @property (strong, nonatomic) UIView* backgroundView;
+@property (strong, nonatomic) UIImage* atmIcon;
+@property (strong, nonatomic) UIImage* terminalIcon;
+@property (strong, nonatomic) UIImage* bankIcon;
 
 @end
 
@@ -59,7 +62,7 @@
     [self.mapView addSubview:self.backgroundView];
     
     [self initLocationManager];
-    [self customizeMap];
+    //[self customizeMap];
     
     self.apiManager = [[PrivatBankAPI alloc] init];
     self.apiManager.delegate = self;
@@ -94,7 +97,7 @@
 -(void) initLocationManager {
     self.locManager = [[CLLocationManager alloc]init];
     self.locManager.delegate = self;
-    self.locManager.distanceFilter = 1000;
+    self.locManager.distanceFilter = 100;
     self.locManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     [self.locManager requestWhenInUseAuthorization];
 }
@@ -102,13 +105,15 @@
 - (void) initInfoWindowView {
 
     self.infoWindowView =  [[[NSBundle mainBundle] loadNibNamed:@"MarkerView" owner:self options:nil] firstObject];
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.infoWindowView.bounds = CGRectMake(0, 0, 250, 70);
     }
     else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.infoWindowView.bounds = CGRectMake(0, 0, 450, 80);
+        self.infoWindowView.bounds = CGRectMake(0, 0, 350, 90);
     }
+    self.atmIcon = [UIImage imageNamed:@"atm-icon-256"];
+    self.terminalIcon = [UIImage imageNamed:@"terminal-icon-256"];
+    self.bankIcon = [UIImage imageNamed:@"bank-icon-256"];
 }
 
 #pragma mark - GMSMapViewDelegate
@@ -123,44 +128,31 @@
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
     
-    self.infoWindowView.titleLabel.text = marker.title;
-    self.infoWindowView.detailedLabel.text = marker.snippet;
-    self.infoWindowView.layer.cornerRadius = 14.f;
+    [self.infoWindowView.titleLabel setText:marker.title];
+    [self.infoWindowView.detailedLabel setText:marker.snippet];
+    [self.infoWindowView.imageView setHighlighted:NO];
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
-    view.layer.cornerRadius = 14.f;
-    view.backgroundColor = [UIColor whiteColor];
-    //customize the UIView, for example, in your case, add a UILabel as the subview of the view
-    //return view;
+    switch ([marker.userData intValue]) {
+        case ATM:
+            self.infoWindowView.iconImageView.image = self.atmIcon;
+            break;
+        case TSO:
+            self.infoWindowView.iconImageView.image = self.terminalIcon;
+            break;
+        case OFFICE:
+            self.infoWindowView.iconImageView.image = self.bankIcon;
+            break;
+        default:
+            break;
+    }
+    
+
     return self.infoWindowView;
 }
 
 - (void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(nonnull GMSMarker *)marker {
-    [self.googleAPIManager getPolylineWithOrigin:self.previusLocation.coordinate
-                                     destination:self.mapView.selectedMarker.position
-                               completionHandler:^(GMSPath* path)
-    {
-       if (!path) {
-           return;
-       }
-       GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
-       GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
-        
-       UIEdgeInsets insets = UIEdgeInsetsMake(60, 30, 30, 30);
-       GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:insets];
-       [self.mapView animateWithCameraUpdate:update];
-       
-       self.placePolyline.map = nil;
-       self.placePolyline = nil;
-       
-       self.placePolyline = polyline;
-       self.placePolyline.strokeWidth = 2.f;
-       self.placePolyline.strokeColor = [UIColor whiteColor];
-       self.placePolyline.map = self.mapView;
-       
-   } errorBlock:^(NSError* error) {
-       
-   }];
+    [self searchPathToMarker];
+    [self.infoWindowView.imageView setHighlighted:YES];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -228,11 +220,9 @@
             [self.setOfATM addObject:place];
             break;
         case TSO:
-            place.marker.map = self.mapView;
             [self.setOfTSO addObject:place];
             break;
         case OFFICE:
-            place.marker.map = self.mapView;
             [self.setOfOffice addObject:place];
             break;
         default:
@@ -275,6 +265,35 @@
     }
 }
 
+- (void)searchPathToMarker {
+    
+    [self.googleAPIManager getPolylineWithOrigin:self.previusLocation.coordinate
+                                     destination:self.mapView.selectedMarker.position
+                               completionHandler:^(GMSPath* path)
+     {
+         if (!path) {
+             return;
+         }
+         GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
+         GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
+         
+         UIEdgeInsets insets = UIEdgeInsetsMake(90, 50, 50, 50);
+         GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:insets];
+         [self.mapView animateWithCameraUpdate:update];
+         
+         self.placePolyline.map = nil;
+         self.placePolyline = nil;
+         
+         self.placePolyline = polyline;
+         self.placePolyline.strokeWidth = 2.f;
+         self.placePolyline.strokeColor = [UIColor whiteColor];
+         self.placePolyline.map = self.mapView;
+         
+     } errorBlock:^(NSError* error) {
+         
+     }];
+}
+
 #pragma mark - Actions
 
 - (IBAction)BackButton:(UIBarButtonItem *)sender {
@@ -297,4 +316,5 @@
             break;
     }
 }
+
 @end

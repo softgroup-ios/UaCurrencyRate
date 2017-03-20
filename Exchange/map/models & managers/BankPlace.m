@@ -15,7 +15,14 @@
     static UIImageView* bankomatLogo;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"marker"]];
+        //set marker icon
+        bankomatLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"pointer"]];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            bankomatLogo.bounds = CGRectMake(0, 0, 20, 20);
+        }
+        else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            bankomatLogo.bounds = CGRectMake(0, 0, 50, 50);
+        }
     });
     
     _coordinate = coordinate;
@@ -24,7 +31,8 @@
     self.marker.title = self.placeUa;
     self.marker.snippet = self.fullAddressUa;
     self.marker.iconView = bankomatLogo;
-    self.marker.iconView.frame = CGRectMake(0, 0, 20, 20);
+    self.marker.userData = [NSNumber numberWithInt:self.typeOfEnum];
+    self.marker.tracksInfoWindowChanges = YES;
 }
 
 - (void) setType:(NSString *)type {
