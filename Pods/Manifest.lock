@@ -1,12 +1,36 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - GoogleMaps (2.2.0):
+    - GoogleMaps/Maps (= 2.2.0)
+  - GoogleMaps/Base (2.2.0)
+  - GoogleMaps/Maps (2.2.0):
+    - GoogleMaps/Base
   - RZTransitions (1.2.1)
 
 DEPENDENCIES:
+  - AFNetworking
+  - GoogleMaps
   - RZTransitions
 
 SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   RZTransitions: 0e0013fda6989ee84dc5e44dca79fd539e1a975a
 
-PODFILE CHECKSUM: 462730ea999c584b4ba0e201e6b4d91c4ae42283
+PODFILE CHECKSUM: a5ba4afac2ead97c6a647ab8560e85f6224ad3ec
 
 COCOAPODS: 1.2.0

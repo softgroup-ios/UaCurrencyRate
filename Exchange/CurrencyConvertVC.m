@@ -149,7 +149,7 @@
 #pragma mark - Buttons
 
 - (IBAction)showPickerButton:(id)sender {
-
+    [_summToConvert resignFirstResponder];
     _valuePicker.hidden = NO;
     [UIView animateWithDuration:0.2 animations:^{
         self.valuePicker.alpha = 1.f;
@@ -176,7 +176,7 @@
 }
 
 - (IBAction)buyOrSellTapped:(id)sender {
-    
+    [_summToConvert resignFirstResponder];
     if(self.buyOrSell.selectedSegmentIndex == 0){
         self.buyVariant = NO;
         [self createResultOfConvert:_resultTextField];

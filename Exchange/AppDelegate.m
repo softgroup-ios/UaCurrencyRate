@@ -7,6 +7,13 @@
 //
 
 #import "AppDelegate.h"
+@import GoogleMaps;
+
+#define GoogleApi  @"AIzaSyDx4GFZHF_XYKDtqZEv80P8E85CofbLBLU"
+
+
+
+
 
 @interface AppDelegate ()
 
@@ -16,7 +23,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    
+    [GMSServices provideAPIKey:GoogleApi];
     return YES;
 }
 

@@ -8,14 +8,7 @@ target 'Exchange' do
 
   # Pods for Exchange
 pod 'RZTransitions'
-  target 'ExchangeTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'ExchangeUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+pod 'AFNetworking'
+pod 'GoogleMaps'
 
 end
