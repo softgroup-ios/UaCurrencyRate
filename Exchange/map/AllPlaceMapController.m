@@ -83,6 +83,8 @@
 
 - (void)dealloc {
     [self.mapView clear];
+    [self.apiManager cleanAllResource];
+    [self.googleAPIManager cleanAllResource];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -228,6 +230,7 @@
 
 - (void)searchPathToMarker {
     
+    __weak AllPlaceMapController* selfWeak = self;
     [self.googleAPIManager getPolylineWithOrigin:self.previusLocation.coordinate
                                      destination:self.mapView.selectedMarker.position
                                completionHandler:^(GMSPath* path)
@@ -240,15 +243,15 @@
          
          UIEdgeInsets insets = UIEdgeInsetsMake(160, 50, 50, 50);
          GMSCameraUpdate *update = [GMSCameraUpdate fitBounds:bounds withEdgeInsets:insets];
-         [self.mapView animateWithCameraUpdate:update];
+         [selfWeak.mapView animateWithCameraUpdate:update];
          
-         self.placePolyline.map = nil;
-         self.placePolyline = nil;
+         selfWeak.placePolyline.map = nil;
+         selfWeak.placePolyline = nil;
          
-         self.placePolyline = polyline;
-         self.placePolyline.strokeWidth = 3.f;
-         self.placePolyline.strokeColor = BACKGROUND_COLOR;
-         self.placePolyline.map = self.mapView;
+         selfWeak.placePolyline = polyline;
+         selfWeak.placePolyline.strokeWidth = 3.f;
+         selfWeak.placePolyline.strokeColor = BACKGROUND_COLOR;
+         selfWeak.placePolyline.map = selfWeak.mapView;
          
      } errorBlock:^(NSError* error) {
          
@@ -257,20 +260,30 @@
 
 - (void)changeLocation:(CLLocation*)location {
     
+    __block int radius = 10000;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.previusLocation = location;
     self.mapView.myLocationEnabled =  YES;
     
     CGFloat widthPoint = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-    CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:30000 perPoints:widthPoint];
+    CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:radius*2 perPoints:widthPoint];
     self.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:zoom bearing:0 viewingAngle:0];
     
+    __weak AllPlaceMapController* selfWeak = self;
     [self.googleAPIManager getReverseGeocoding:location.coordinate completionHandler:^(NSString* cityName){
+        if (cityName) {
+            radius = 3000;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:radius*2 perPoints:widthPoint];
+                selfWeak.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:zoom bearing:0 viewingAngle:0];
+            });
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.mapView clear];
-            [self removeAllPlaces];
+            [selfWeak.mapView clear];
+            [selfWeak removeAllPlaces];
         });
-        [self.apiManager getAllBankPlaceInCity:cityName myLoc:location inRadius:15000];
+        
+        [selfWeak.apiManager getAllBankPlaceInCity:cityName myLoc:location inRadius:radius];
     } errorBlock:^(NSError* error) {
         
     }];

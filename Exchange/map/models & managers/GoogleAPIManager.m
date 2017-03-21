@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) AFHTTPSessionManager *networkManager;
 @property (nonatomic, strong) NSString *language;
+@property (nonatomic, strong) NSMutableArray <NSURLSessionTask*> *tasks;
 @end
 
 
@@ -26,9 +27,19 @@
         manager.networkManager = [[AFHTTPSessionManager alloc] init];
         manager.networkManager.completionQueue = dispatch_queue_create("com.Exchange.GoogleAPIManager.completionQueue", DISPATCH_QUEUE_CONCURRENT);
         manager.language = @"ru";
+        manager.tasks = [NSMutableArray array];
     });
     
     return  manager;
+}
+
+- (void)cleanAllResource {
+    if (self.tasks) {
+        [self.tasks enumerateObjectsUsingBlock:^(NSURLSessionTask * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj cancel];
+        }];
+        [self.tasks removeAllObjects];
+    }
 }
 
 #pragma mark - Methods For Get All GoogleAPI
@@ -43,7 +54,7 @@
     
     NSDictionary *parameters = @{@"latlng":coordString,
                                  @"language":self.language};
-    [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionTask* task = [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject:nil;
         if (dict) {
             [self parsePlaceAddress:dict completionHandler:completionHandler errorBlock:errorBlock];
@@ -54,6 +65,7 @@
     }  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         errorBlock(error);
     }];
+    [self.tasks addObject:task];
 }
 
 - (void)getPolylineWithOrigin:(CLLocationCoordinate2D)origin
@@ -71,7 +83,7 @@
                                  @"alternatives":@(YES),
                                  @"key":GoogleApi};
     
-    [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionTask* task = [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject:nil;
         if (dict) {
             [self parsePolyline:dict completionHandler:completionHandler errorBlock:errorBlock];
@@ -82,6 +94,8 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         errorBlock(error);
     }];
+    
+    [self.tasks addObject:task];
 }
 
 - (void)getGeocoding:(NSString*)address
@@ -94,12 +108,14 @@
     NSDictionary *parameters = @{@"address":address};
                                 // @"key":GoogleApi}; //no needed
     
-    [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionTask* task = [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = [responseObject isKindOfClass:[NSDictionary class]] ? responseObject:nil;
         if (dict) {
             [self parseGeocoding:dict completionHandler:completionHandler];
         }
     } failure:nil];
+    
+    [self.tasks addObject:task];
 }
 
 #pragma mark - Processing result, Parse and other

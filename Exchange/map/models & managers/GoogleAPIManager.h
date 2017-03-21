@@ -21,6 +21,7 @@ typedef void (^ComplateReversGeo)(NSString* city);
 
 
 +(GoogleAPIManager*) sharedManager;
+- (void)cleanAllResource;
 
 - (void)getPolylineWithOrigin:(CLLocationCoordinate2D)origin
                     destination:(CLLocationCoordinate2D)destination

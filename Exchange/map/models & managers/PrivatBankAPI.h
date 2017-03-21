@@ -24,4 +24,6 @@
 - (void)getAllBankPlaceInCity:(NSString*)city
                         myLoc:(CLLocation*)coord
                      inRadius:(CLLocationDistance)distance;
+
+- (void)cleanAllResource;
 @end

@@ -21,6 +21,7 @@
 @property (nonatomic, assign) CLLocationDistance distance;
 
 @property (nonatomic, assign) NSInteger isReady;
+@property (nonatomic, strong) NSMutableArray* tasks;
 @end
 
 @implementation PrivatBankAPI
@@ -31,6 +32,7 @@
         self.networkManager = [[AFHTTPSessionManager alloc] init];
         self.networkManager.completionQueue = dispatch_queue_create("com.Exchange.PrivatBankApi.completionQueue", DISPATCH_QUEUE_CONCURRENT);
         self.googleAPIManager = [GoogleAPIManager sharedManager];
+        self.tasks = [NSMutableArray array];
     }
     return self;
 }
@@ -42,6 +44,18 @@
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         });
     }
+}
+
+- (void)cleanAllResource {
+    if (self.tasks) {
+        [self.tasks enumerateObjectsUsingBlock:^(NSURLSessionTask * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj cancel];
+        }];
+        [self.tasks removeAllObjects];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    });
 }
 
 #pragma mark - Manager Methods
@@ -60,27 +74,30 @@
     NSString* getATM = [NSString stringWithFormat:@"https://api.privatbank.ua/p24api/infrastructure?json&atm&city=%@", cityString];
     NSString* pboffice = [NSString stringWithFormat:@"https://api.privatbank.ua/p24api/pboffice?json&city=%@",  cityString];
     
-    [self.networkManager GET:pboffice parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionTask* taskOffice = [self.networkManager GET:pboffice parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject) {
             [self parseOffice:responseObject];
             self.isReady += 1;
         }
     } failure:nil];
     
-    [self.networkManager GET:getTSO parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionTask* taskTSO = [self.networkManager GET:getTSO parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
          if (responseObject) {
              [self parseBankomat:responseObject];
              self.isReady += 1;
          }
      } failure:nil];
     
-    [self.networkManager GET:getATM parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionTask* taskATM = [self.networkManager GET:getATM parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
          if (responseObject) {
              [self parseBankomat:responseObject];
              self.isReady += 1;
          }
      } failure:nil];
 
+    [self.tasks addObject:taskOffice];
+    [self.tasks addObject:taskTSO];
+    [self.tasks addObject:taskATM];
 }
 
 #pragma mark - Help methods
@@ -151,6 +168,7 @@
         
         NSString* fullAddressUa = [NSString stringWithFormat:@"%@, %@, %@, %@",address,city,state,country];
         
+        __weak PrivatBankAPI* selfWeak = self;
         [self.googleAPIManager getGeocoding:fullAddressUa completionHandler:^(CLLocation *location) {
             if ([location distanceFromLocation:_myLoc] > _distance) {
                 return;
@@ -162,7 +180,7 @@
             place.placeUa = [placeUa stringByReplacingOccurrencesOfString:@"\\" withString:@""];;
             dispatch_async(dispatch_get_main_queue(), ^{
                 place.coordinate = location.coordinate;
-                [self.delegate takeBankPlace:place];
+                [selfWeak.delegate takeBankPlace:place];
             });
         }];
     }
