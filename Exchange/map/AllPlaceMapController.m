@@ -27,6 +27,7 @@
 @interface AllPlaceMapController () <CLLocationManagerDelegate, GMSMapViewDelegate, GetAllBankPlaceDelegate>
     
 @property (nonatomic,strong) CLLocationManager* locManager;
+@property (strong, nonatomic) CLLocation* location;
 @property (strong, nonatomic) CLLocation* previusLocation;
 
 @property (strong, nonatomic) NSMutableSet* setOfOffice;
@@ -172,15 +173,16 @@
      didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
     CLLocation *location = [locations lastObject];
+    self.location = location;
     
     NSTimeInterval locationAge = -[location.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
-    
+
     if (location.horizontalAccuracy < 0) return;
     
     //if location change more than 1000m
     if (self.previusLocation) {
-        if([location distanceFromLocation:self.previusLocation] > 1000) {
+        if([location distanceFromLocation:self.previusLocation] > 400) {
             [self changeLocation:location];
         }
         else {
@@ -231,7 +233,7 @@
 - (void)searchPathToMarker {
     
     __weak AllPlaceMapController* selfWeak = self;
-    [self.googleAPIManager getPolylineWithOrigin:self.previusLocation.coordinate
+    [self.googleAPIManager getPolylineWithOrigin:self.location.coordinate
                                      destination:self.mapView.selectedMarker.position
                                completionHandler:^(GMSPath* path)
      {
@@ -260,7 +262,7 @@
 
 - (void)changeLocation:(CLLocation*)location {
     
-    __block int radius = 10000;
+    __block int radius = 6000;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.previusLocation = location;
     self.mapView.myLocationEnabled =  YES;
@@ -272,7 +274,7 @@
     __weak AllPlaceMapController* selfWeak = self;
     [self.googleAPIManager getReverseGeocoding:location.coordinate completionHandler:^(NSString* cityName){
         if (cityName) {
-            radius = 3000;
+            radius = 1500;
             dispatch_async(dispatch_get_main_queue(), ^{
                 CGFloat zoom = [GMSCameraPosition zoomAtCoordinate:location.coordinate forMeters:radius*2 perPoints:widthPoint];
                 selfWeak.mapView.camera = [[GMSCameraPosition alloc]initWithTarget:location.coordinate zoom:zoom bearing:0 viewingAngle:0];
