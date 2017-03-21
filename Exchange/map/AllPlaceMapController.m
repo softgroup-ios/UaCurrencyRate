@@ -257,7 +257,7 @@
          
          selfWeak.placePolyline = polyline;
          selfWeak.placePolyline.strokeWidth = 3.f;
-         selfWeak.placePolyline.strokeColor = BACKGROUND_COLOR;
+         selfWeak.placePolyline.strokeColor = MARKER_COLOR; //BACKGROUND_COLOR;
          selfWeak.placePolyline.map = selfWeak.mapView;
          
      } errorBlock:^(NSError* error) {

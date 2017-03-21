@@ -16,7 +16,7 @@
         <scene sceneID="Bpd-XK-Ltw">
             <objects>
                 <navigationController id="uTe-rg-tO9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iyr-cf-i6r">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iyr-cf-i6r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,7 +45,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resource - Privat bank API" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xy-q1-FQw">
-                                <rect key="frame" x="125.66666666666669" y="64" width="163" height="20"/>
+                                <rect key="frame" x="126" y="64" width="163" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="8ho-Ln-wM5"/>
                                     <constraint firstAttribute="width" constant="163" id="e5X-F0-HaW"/>
@@ -192,6 +192,7 @@
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="BtQ-wv-MaG">
                                 <rect key="frame" x="281" y="434" width="20" height="20"/>
+                                <color key="tintColor" red="0.3844428806462501" green="0.30698448886588359" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="6SR-n7-4la">
                                 <rect key="frame" x="138" y="434" width="20" height="20"/>
@@ -559,7 +560,7 @@
         <scene sceneID="67f-YQ-bmK">
             <objects>
                 <navigationController storyboardIdentifier="AllPlaceMapController" id="fRm-zS-itd" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="okf-4R-jKu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="okf-4R-jKu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -619,7 +620,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="B7f-8V-1St">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="1" id="eK4-ZB-t0W">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="1" id="eK4-ZB-t0W">
                                 <rect key="frame" x="135" y="7" width="259" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <segments>

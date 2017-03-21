@@ -153,7 +153,6 @@
     completionHandler:(ComplatePath)completionHandler
            errorBlock: (ErrorBlock) errorBlock {
     
-    NSLog(@"dict: %@",dict);
     NSArray *routesArray = [dict objectForKey:@"routes"];
     
     if ([routesArray count] > 0)
