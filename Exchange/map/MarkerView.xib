@@ -14,50 +14,68 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkerView">
-            <rect key="frame" x="0.0" y="0.0" width="284" height="129"/>
+            <rect key="frame" x="0.0" y="0.0" width="248" height="76"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnG-YT-wxw" userLabel="ContentView">
-                    <rect key="frame" x="8" y="8" width="268" height="113"/>
+                    <rect key="frame" x="8" y="8" width="232" height="60"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank-icon-256" translatesAutoresizingMaskIntoConstraints="NO" id="3r5-qg-gC6">
-                            <rect key="frame" x="3" y="8" width="97" height="97"/>
+                            <rect key="frame" x="3" y="4.5" width="51" height="51"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="3r5-qg-gC6" secondAttribute="height" multiplier="1:1" id="eyw-dS-0NQ"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Магазин &quot;Мясо&quot;" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="poy-7y-2WM">
-                            <rect key="frame" x="108" y="4" width="152" height="47"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <rect key="frame" x="62" y="4" width="162" height="23"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Украина,область Днепропетровская,город Днепропетровск,улица Малиновского,дом 34б" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Z6K-ku-sEh">
-                            <rect key="frame" x="108" y="51" width="98" height="58"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="улица Малиновского,дом 34б" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Z6K-ku-sEh">
+                            <rect key="frame" x="62" y="25" width="139" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="path-icon-green-200" highlightedImage="path-icon-white-200" translatesAutoresizingMaskIntoConstraints="NO" id="1X0-ia-BOX">
-                            <rect key="frame" x="206" y="51" width="58" height="58"/>
+                            <rect key="frame" x="200" y="27" width="29" height="29"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="1X0-ia-BOX" secondAttribute="height" multiplier="1:1" id="nSB-t0-OCg"/>
+                                <constraint firstAttribute="width" secondItem="1X0-ia-BOX" secondAttribute="height" multiplier="1:1" id="gfe-wW-bnm"/>
                             </constraints>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.9 km " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.45000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="UfM-gz-RPp">
+                            <rect key="frame" x="84" y="45.5" width="42" height="10.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.45000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="O6x-Gr-zT2">
+                            <rect key="frame" x="136" y="45.5" width="43.5" height="10.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.1803921568627451" green="0.21176470588235294" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="Z6K-ku-sEh" firstAttribute="top" secondItem="poy-7y-2WM" secondAttribute="bottom" id="06Q-ML-ePF"/>
+                        <constraint firstItem="Z6K-ku-sEh" firstAttribute="leading" secondItem="poy-7y-2WM" secondAttribute="leading" id="2wU-cM-Bts"/>
+                        <constraint firstItem="O6x-Gr-zT2" firstAttribute="bottom" secondItem="1X0-ia-BOX" secondAttribute="bottom" id="4IM-kC-8qI"/>
                         <constraint firstAttribute="trailing" secondItem="poy-7y-2WM" secondAttribute="trailing" constant="8" id="A4A-7e-HUC"/>
-                        <constraint firstItem="1X0-ia-BOX" firstAttribute="top" secondItem="poy-7y-2WM" secondAttribute="bottom" id="DSW-3L-qwo"/>
-                        <constraint firstItem="1X0-ia-BOX" firstAttribute="bottom" secondItem="Z6K-ku-sEh" secondAttribute="bottom" id="MKA-As-AQV"/>
-                        <constraint firstItem="poy-7y-2WM" firstAttribute="height" secondItem="nnG-YT-wxw" secondAttribute="height" multiplier="5:12" id="OnS-Ly-YJA"/>
+                        <constraint firstItem="1X0-ia-BOX" firstAttribute="top" secondItem="poy-7y-2WM" secondAttribute="bottom" id="Bch-qF-29V"/>
+                        <constraint firstItem="UfM-gz-RPp" firstAttribute="top" secondItem="Z6K-ku-sEh" secondAttribute="bottom" id="Dsu-te-RSa"/>
+                        <constraint firstItem="UfM-gz-RPp" firstAttribute="bottom" secondItem="1X0-ia-BOX" secondAttribute="bottom" id="Grs-e3-Ap1"/>
+                        <constraint firstItem="UfM-gz-RPp" firstAttribute="centerX" secondItem="Z6K-ku-sEh" secondAttribute="centerX" multiplier="0.8" id="MSI-ga-753"/>
+                        <constraint firstAttribute="trailing" secondItem="1X0-ia-BOX" secondAttribute="trailing" constant="3" id="NGI-bh-DoA"/>
+                        <constraint firstItem="poy-7y-2WM" firstAttribute="height" secondItem="nnG-YT-wxw" secondAttribute="height" multiplier="5:13" id="OnS-Ly-YJA"/>
                         <constraint firstItem="3r5-qg-gC6" firstAttribute="leading" secondItem="nnG-YT-wxw" secondAttribute="leading" constant="3" id="S8J-fe-p0t"/>
+                        <constraint firstItem="1X0-ia-BOX" firstAttribute="leading" secondItem="Z6K-ku-sEh" secondAttribute="trailing" constant="-1" id="X61-NO-rcz"/>
                         <constraint firstItem="poy-7y-2WM" firstAttribute="top" secondItem="nnG-YT-wxw" secondAttribute="top" constant="4" id="X7Q-xF-zf6"/>
-                        <constraint firstItem="Z6K-ku-sEh" firstAttribute="leading" secondItem="poy-7y-2WM" secondAttribute="leading" id="YyI-xH-1z4"/>
-                        <constraint firstItem="1X0-ia-BOX" firstAttribute="leading" secondItem="Z6K-ku-sEh" secondAttribute="trailing" id="dgz-vk-i7o"/>
-                        <constraint firstAttribute="bottom" secondItem="Z6K-ku-sEh" secondAttribute="bottom" constant="4" id="gl4-UJ-SqZ"/>
-                        <constraint firstAttribute="trailing" secondItem="1X0-ia-BOX" secondAttribute="trailing" constant="4" id="jXN-mV-s7i"/>
+                        <constraint firstAttribute="bottom" secondItem="1X0-ia-BOX" secondAttribute="bottom" constant="4" id="ZCY-Ql-B12"/>
+                        <constraint firstItem="Z6K-ku-sEh" firstAttribute="top" secondItem="poy-7y-2WM" secondAttribute="bottom" constant="-2.5" id="aaf-fu-FfG"/>
+                        <constraint firstItem="O6x-Gr-zT2" firstAttribute="top" secondItem="Z6K-ku-sEh" secondAttribute="bottom" id="bqK-Xf-Ikn"/>
+                        <constraint firstItem="Z6K-ku-sEh" firstAttribute="height" secondItem="poy-7y-2WM" secondAttribute="height" multiplier="0.9" id="dZa-Yj-u67"/>
+                        <constraint firstItem="O6x-Gr-zT2" firstAttribute="centerX" secondItem="Z6K-ku-sEh" secondAttribute="centerX" multiplier="1.2" id="f7M-Pm-FCT"/>
                         <constraint firstItem="3r5-qg-gC6" firstAttribute="centerY" secondItem="nnG-YT-wxw" secondAttribute="centerY" id="p1U-uc-Cl4"/>
                         <constraint firstItem="poy-7y-2WM" firstAttribute="leading" secondItem="3r5-qg-gC6" secondAttribute="trailing" constant="8" id="tp4-ms-st3"/>
                         <constraint firstItem="3r5-qg-gC6" firstAttribute="height" secondItem="nnG-YT-wxw" secondAttribute="height" multiplier="6:7" id="zu2-ld-Vob"/>
@@ -70,7 +88,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-64" translatesAutoresizingMaskIntoConstraints="NO" id="HX1-DN-QPG">
-                    <rect key="frame" x="127" y="117" width="30" height="30"/>
+                    <rect key="frame" x="116" y="64" width="16" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="HX1-DN-QPG" secondAttribute="height" multiplier="1:1" id="49l-V4-fzM"/>
                     </constraints>
@@ -89,11 +107,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="detailedLabel" destination="Z6K-ku-sEh" id="jaP-e0-ERM"/>
+                <outlet property="distance" destination="UfM-gz-RPp" id="Xng-Lb-2qU"/>
+                <outlet property="duration" destination="O6x-Gr-zT2" id="ixd-PN-pL7"/>
                 <outlet property="iconImageView" destination="3r5-qg-gC6" id="IOb-aQ-IQi"/>
                 <outlet property="imageView" destination="1X0-ia-BOX" id="6cj-tn-06C"/>
                 <outlet property="titleLabel" destination="poy-7y-2WM" id="wTD-oj-flx"/>
             </connections>
-            <point key="canvasLocation" x="224" y="188.5"/>
+            <point key="canvasLocation" x="265" y="189"/>
         </view>
     </objects>
     <resources>

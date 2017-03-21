@@ -135,6 +135,9 @@
         address = [address stringByReplacingOccurrencesOfString:@"\\" withString:@""];
         placeString = [placeString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
         
+        NSArray* addressComponents = [address componentsSeparatedByString:@","];
+        address = [addressComponents[addressComponents.count-2] stringByAppendingFormat:@", %@",addressComponents[addressComponents.count-1]];
+        
         BankPlace* place = [[BankPlace alloc]init];
         place.type = type;
         place.fullAddressUa = address;

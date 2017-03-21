@@ -13,7 +13,7 @@
 
 typedef void (^ErrorBlock)(NSError* error);
 typedef void (^ComplateLocation)(CLLocation* location);
-typedef void (^ComplatePath)(GMSPath* path);
+typedef void (^ComplatePath)(GMSPath* path, NSString* distance, NSString* duration);
 typedef void (^ComplateReversGeo)(NSString* city);
 
 @interface GoogleAPIManager : NSObject

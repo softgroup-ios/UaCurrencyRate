@@ -57,10 +57,11 @@
     [super viewDidLoad];
     
     self.mapView.backgroundColor = BACKGROUND_MAP_COLOR;
-    
     self.backgroundView = [[UIView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
     self.backgroundView.backgroundColor = BACKGROUND_MAP_COLOR;
     [self.mapView addSubview:self.backgroundView];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     [self initLocationManager];
     //[self customizeMap];
@@ -131,6 +132,8 @@
     [self.infoWindowView.titleLabel setText:marker.title];
     [self.infoWindowView.detailedLabel setText:marker.snippet];
     [self.infoWindowView.imageView setHighlighted:NO];
+    self.infoWindowView.distance.text = @"";
+    self.infoWindowView.duration.text = @"";
     
     switch ([marker.userData intValue]) {
         case ATM:
@@ -235,11 +238,13 @@
     __weak AllPlaceMapController* selfWeak = self;
     [self.googleAPIManager getPolylineWithOrigin:self.location.coordinate
                                      destination:self.mapView.selectedMarker.position
-                               completionHandler:^(GMSPath* path)
+                               completionHandler:^(GMSPath* path, NSString* distance, NSString* duration)
      {
          if (!path) {
              return;
          }
+         selfWeak.infoWindowView.distance.text = distance;
+         selfWeak.infoWindowView.duration.text = duration;
          GMSPolyline* polyline = [GMSPolyline polylineWithPath:path];
          GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithPath:path];
          

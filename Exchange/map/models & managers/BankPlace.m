@@ -21,7 +21,7 @@
             bankomatLogo.bounds = CGRectMake(0, 0, 20, 20);
         }
         else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            bankomatLogo.bounds = CGRectMake(0, 0, 40, 40);
+            bankomatLogo.bounds = CGRectMake(0, 0, 30, 30);
         }
     });
     

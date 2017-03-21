@@ -70,7 +70,7 @@
 
 - (void)getPolylineWithOrigin:(CLLocationCoordinate2D)origin
                   destination:(CLLocationCoordinate2D)destination
-            completionHandler:(void (^)(GMSPath *))completionHandler
+            completionHandler:(ComplatePath)completionHandler
                    errorBlock: (ErrorBlock) errorBlock {
     
     NSString *directionsAPI = @"https://maps.googleapis.com/maps/api/directions/json?";
@@ -80,7 +80,7 @@
     NSDictionary *parameters = @{@"origin":originString,
                                  @"destination":destinationString,
                                  @"mode":@"walking",
-                                 @"alternatives":@(YES),
+                                 //@"alternatives":@(YES),
                                  @"key":GoogleApi};
     
     NSURLSessionTask* task = [self.networkManager GET:directionsAPI parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -150,19 +150,29 @@
 
 
 - (void)parsePolyline:(NSDictionary*)dict
-    completionHandler:(void (^)(GMSPath *))completionHandler
+    completionHandler:(ComplatePath)completionHandler
            errorBlock: (ErrorBlock) errorBlock {
     
+    NSLog(@"dict: %@",dict);
     NSArray *routesArray = [dict objectForKey:@"routes"];
     
     if ([routesArray count] > 0)
     {
-        NSDictionary *routeDict = [routesArray objectAtIndex:0];
-        NSDictionary *routeOverviewPolyline = [routeDict objectForKey:@"overview_polyline"];
-        NSString *points = [routeOverviewPolyline objectForKey:@"points"];
+        NSDictionary* routeDict = [routesArray objectAtIndex:0];
+        NSDictionary* routeOverviewPolyline = [routeDict objectForKey:@"overview_polyline"];
+        NSString* points = [routeOverviewPolyline objectForKey:@"points"];
+        GMSPath* path = [GMSPath pathFromEncodedPath: points];
+        
+        NSArray* legs = [routeDict objectForKey:@"legs"];
+        NSDictionary* leg = legs.firstObject;
+        NSDictionary* distance = [leg objectForKey:@"distance"];
+        NSString* distanceText = [distance objectForKey:@"text"];
+        NSDictionary* duration = [leg objectForKey:@"duration"];
+        NSString* durationText = [duration objectForKey:@"text"];
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            GMSPath* path = [GMSPath pathFromEncodedPath: points];
-            completionHandler(path);
+            completionHandler(path, distanceText, durationText);
         });
     }
     else
