@@ -29,9 +29,7 @@ IOS application with currency UAH rate and convertor, based on "Privat bank" API
 ## DEMO
 
 <p align="center">
-<video controls autoplay>
-  <source src="https://media.giphy.com/media/3ohzdZvHtpLtLQbiAU/source.mp4" type="video/mp4">
-</video>
+<img src="ReadmeResources/readme.gif" height="500"/>
 </p>
 
 ## LICENSE
