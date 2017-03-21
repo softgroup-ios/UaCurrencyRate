@@ -4,7 +4,8 @@
 )](https://developer.apple.com/iphone/index.action)
 [![ObjectiveC](https://img.shields.io/badge/Objective--C-2.0-blue.svg)](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 
 
-IOS application with live currency UAH rate, convertor, and map with PrivatBank ATM's and offices based on PrivatBank API.
+IOS application with currency UAH rate , convertor,and map with PrivatBank ATM's and offices based on PrivatBank API.
+
 ---
 
 <p align="center">
@@ -21,10 +22,10 @@ IOS application with live currency UAH rate, convertor, and map with PrivatBank 
 
 - Free USD,EUR,RUB and UAH currency rates.
 - Convertor for each currency.
-- Comparison currency rate with last rates
+- Comparison of currency rate with the previous one
 - Google map with selectable ATM or office and with further path creation
-- Nice and slowly minimalist design
-- Support all IOS device
+- Nice and minimalist design
+- Support all IOS devices
 
 ## DEMO
 
