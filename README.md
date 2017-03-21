@@ -9,9 +9,11 @@ IOS application with currency UAH rate and convertor, based on "Privat bank" API
 ---
 
 <p align="center">
-<img src="https://pp.userapi.com/c837434/v837434677/2d0ef/ly1dp6Emzcs.jpg" width="250">
-<img src="https://pp.userapi.com/c837434/v837434677/2d0f9/z8wZk9nFSoQ.jpg" width="250">
-<img src="https://pp.userapi.com/c837434/v837434677/2d103/6xOGskmH3Bs.jpg" width="250">
+<img src="https://preview.ibb.co/c8R8MF/Simulator_Screen_Shot_Mar_21_2017_3_37_26_PM.png" width="250">
+<img src="https://preview.ibb.co/mjs4va/Simulator_Screen_Shot_Mar_21_2017_3_37_35_PM.png" width="250">
+<img src="https://preview.ibb.co/fjOcFa/Simulator_Screen_Shot_Mar_21_2017_3_37_39_PM.png" width="250">
+<img src="https://preview.ibb.co/cKKv1F/Simulator_Screen_Shot_Mar_21_2017_3_37_53_PM.png" width="250">
+<img src="https://preview.ibb.co/e1A2gF/Simulator_Screen_Shot_Mar_21_2017_3_38_02_PM.png" width="250">
 </p>
 
 ---
