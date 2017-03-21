@@ -23,7 +23,7 @@ IOS application with live currency UAH rate, convertor, and map with PrivatBank 
 - Free USD,EUR,RUB and UAH currency rates.
 - Convertor for each currency.
 - Comparison of currency rate with the previous one
-- Google map with selectable ATM or office and with further path creation
+- ATM and bank's branch finder via Google map with creating routes to them from your current or chosen position
 - Nice and minimalistic design
 - Support all IOS devices
 
